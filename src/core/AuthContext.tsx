@@ -1,22 +1,7 @@
 import React from "react";
+import { AuthContextInterface } from "./interface/authContext.interface";
 
-interface AuthContextState {
-  isAuthenticated: boolean;
-  token: string | null;
-}
-
-export interface AuthContext {
-  state: AuthContextState;
-  login: (token: string) => void;
-  logout: () => void;
-}
-
-interface AuthContextState {
-  isAuthenticated: boolean;
-  token: string | null;
-}
-
-const AuthContext = React.createContext<AuthContext>({
+const AuthContext = React.createContext<AuthContextInterface>({
   state: {
     isAuthenticated: false,
     token: null,

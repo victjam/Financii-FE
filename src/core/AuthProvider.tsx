@@ -1,15 +1,11 @@
 import { useState } from "react";
-import AuthContext from "./authContext";
-
-interface AuthContextState {
-  isAuthenticated: boolean;
-  token: string | null;
-}
+import AuthContext from "./AuthContext";
+import { AuthContextStateInterface } from "./interface/authContext.interface";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [state, setState] = useState<AuthContextState>({
+  const [state, setState] = useState<AuthContextStateInterface>({
     isAuthenticated: false,
     token: null,
   });

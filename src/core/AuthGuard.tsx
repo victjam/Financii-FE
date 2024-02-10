@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./authContext";
+import AuthContext from "./AuthContext";
 
 const AuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { state } = useContext(AuthContext);
