@@ -34,7 +34,7 @@ const Signup: FC = () => {
               name="username"
               id="username"
               className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
             />
           </div>
           <div>
@@ -46,7 +46,7 @@ const Signup: FC = () => {
               name="firstName"
               id="firstName"
               className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
             />
           </div>
           <div>
@@ -58,7 +58,7 @@ const Signup: FC = () => {
               name="lastName"
               id="lastName"
               className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
             />
           </div>
           <div>
@@ -70,7 +70,7 @@ const Signup: FC = () => {
               name="email"
               id="email"
               className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
             />
           </div>
           <div>
@@ -82,20 +82,20 @@ const Signup: FC = () => {
               name="password"
               id="password"
               className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
             />
           </div>
         </div>
         <button
           onClick={signup}
-          className="mt-10 transition-background inline-flex h-10 w-full text-white items-center justify-center rounded-md  bg-gradient-to-r from-blue-400 via-blue-400 to-blue-600 bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium  duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
+          className="mt-10 transition-background inline-flex h-10 w-full text-white items-center justify-center rounded-md  bg-gradient-to-r from-primary via-primary to-primaryDark bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium  duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
         >
           Signup
         </button>
         <div className="mt-5">
           <p className="text-xs font-light">
             Already have an account?{" "}
-            <a onClick={redirectToLogin} href="#" className="text-sky-500">
+            <a onClick={redirectToLogin} href="#" className="text-primary">
               Login
             </a>
           </p>

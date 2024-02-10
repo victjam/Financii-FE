@@ -48,7 +48,7 @@ const Login: FC = () => {
                 name="username"
                 id="username"
                 className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
               />
             </div>
             <div>
@@ -60,13 +60,13 @@ const Login: FC = () => {
                 name="password"
                 id="password"
                 className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-sky-500 transition-all duration-300 ease-in-out"
+          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
               />
             </div>
           </div>
           <button
             onClick={login}
-            className="mt-10 transition-background inline-flex h-10 w-full text-white items-center justify-center rounded-md  bg-gradient-to-r from-blue-400 via-blue-400 to-blue-600 bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium  duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
+            className="mt-10 transition-background inline-flex h-10 w-full text-white items-center justify-center rounded-md  bg-gradient-to-r from-primary via-primary to-primaryDark bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium  duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
           >
             Login
           </button>
@@ -75,20 +75,20 @@ const Login: FC = () => {
               <input
                 type="checkbox"
                 id="remember-me"
-                className="rounded-sm bg-sky-500 checked:bg-sky-500 checked:border-transparent focus:outline-none transition-all duration-300 ease-in-out"
+                className="rounded-sm bg-primary checked:bg-primary checked:border-transparent focus:outline-none transition-all duration-300 ease-in-out"
               />
               <label htmlFor="remember-me" className="ml-2 text-xs font-light">
                 Remember me
               </label>
             </div>
-            <a href="#" className="text-xs font-light text-sky-500">
+            <a href="#" className="text-xs font-light text-primary">
               Forgot password?
             </a>
           </div>
           <div className="mt-5">
             <p className="text-xs font-light">
               Don't have an account?{" "}
-              <a onClick={redirectToSignup} href="#" className="text-sky-500">
+              <a onClick={redirectToSignup} href="#" className="text-primary">
                 Sign up
               </a>
             </p>
