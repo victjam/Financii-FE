@@ -1,4 +1,5 @@
 import TransactionList from "../components/transaction/TransactionList";
+import Button from "../components/ui/Button";
 
 const Home = () => {
   return (
@@ -6,7 +7,7 @@ const Home = () => {
       <div className="w-2/12 bg-white p-5">
         {/* Profile */}
         <div className="flex border-b-2 border-slate-100 pb-2">
-          <div className="rounded-md bg-blue-300 h-10 w-10"></div>
+          <div className="rounded-md bg-primaryLight h-10 w-10"></div>
           <div className="ml-3">
             <div className="font-bold">John Doe</div>
             <div className="text-xs text-gray-500">John@gmail.com</div>
@@ -19,13 +20,13 @@ const Home = () => {
           </p>
           <div>
             <div className="flex items-center space-x-2">
-              <div className="rounded-md bg-blue-300 h-5 w-5"></div>
+              <div className="rounded-md bg-primaryLight h-5 w-5"></div>
               <p className="text-xs font-semibold">Dashboard</p>
             </div>
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <div className="rounded-md bg-blue-300 h-5 w-5"></div>
+              <div className="rounded-md bg-primaryLight h-5 w-5"></div>
               <p className="text-xs font-semibold">Transactions</p>
             </div>
           </div>
@@ -39,9 +40,12 @@ const Home = () => {
               <p className="text-xs text-gray-500">Total Balance</p>
               <p className="text-2xl font-semibold">$ 1,000</p>
             </div>
-            <button className="bg-blue-300 rounded-md px-3 py-1 text-xs w-40 h-10 text-white">
-              Add Transaction
-            </button>
+            <Button
+              width="w-1/3"
+              fontSize="text-sm"
+              text="Add transaction"
+              onClick={() => {}}
+            />
           </div>
         </div>
         {/* Recent Transactions */}

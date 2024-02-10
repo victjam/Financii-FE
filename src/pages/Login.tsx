@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../components/ui/Button";
 
 const Login: FC = () => {
   const [username, setUsername] = useState("");
@@ -64,12 +65,7 @@ const Login: FC = () => {
               />
             </div>
           </div>
-          <button
-            onClick={login}
-            className="mt-10 transition-background inline-flex h-10 w-full text-white items-center justify-center rounded-md  bg-gradient-to-r from-primary via-primary to-primaryDark bg-[length:200%_200%] bg-[0%_0%] px-6 font-medium  duration-500 hover:bg-[100%_200%] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 "
-          >
-            Login
-          </button>
+          <Button onClick={login} text="Login" />
           <div className="mt-5 flex items-center justify-between">
             <div className="flex items-center">
               <input

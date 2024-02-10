@@ -16,7 +16,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
   return (
     <div className="flex flex-row justify-between items-center border-b-2 border-slate-100 pb-2">
       <div className="flex flex-row items-center space-x-3">
-        <div className="rounded-md bg-blue-300 h-8 w-8"></div>
+        <div className="rounded-md bg-primaryLight h-8 w-8"></div>
         <div className="flex flex-col">
           <div className="font-semibold">{transaction.title}</div>
           <div className="text-xs text-gray-500">{transaction.description}</div>
