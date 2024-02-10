@@ -1,15 +1,21 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login: FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const login = () => {
     console.log(username, password);
   };
 
+  const redirectToSignup = () => {
+    navigate("/signup");
+  };
+
   return (
-    <>
+    <div className="w-screen h-screen flex justify-center items-center">
       <div className="flex flex-col space-y-5 w-3/12">
         <div className="space-y-1">
           <h1 className="text-3xl font-semibold">Login</h1>
@@ -82,14 +88,14 @@ const Login: FC = () => {
           <div className="mt-5">
             <p className="text-xs font-light">
               Don't have an account?{" "}
-              <a href="#" className="text-sky-500">
+              <a onClick={redirectToSignup} href="#" className="text-sky-500">
                 Sign up
               </a>
             </p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
