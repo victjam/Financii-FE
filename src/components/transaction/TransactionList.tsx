@@ -1,62 +1,83 @@
 import React from "react";
-import TransactionItem from "./TransactionItem";
 import { Transaction } from "../../interfaces/transaction.interface";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { Button } from "../ui/button";
+
+import { ArrowUpRight } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import { Badge } from "../ui/badge";
 
 interface TransactionsItemProps {
   transactions: Transaction[];
 }
-
-const TRANSACTIONS_EXAMPLE = [
-  {
-    id: "65b7ce24e1cc7aa971154956",
-    title: "updated title",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "320.0",
-    date: "2024-01-29T12:34:56.789000",
-    description: "Just buy some things number 2",
-  },
-  {
-    id: "65b7ce2ee1cc7aa971154957",
-    title: "nmber 2",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "320.0",
-    date: "2024-01-29T12:34:56.789000",
-    description: "Just buy some things number 2",
-  },
-  {
-    id: "65b7d26b76d941562ec55dd6",
-    title: "Payment from Bill.com - XX-757246  (Victor Jose Manrique A)",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "7,012.17",
-    date: "2023-12-26T00:00:00",
-    description: "Payment from Bill.com - XX-757246  (Victor Jose Manrique A)",
-  },
-  {
-    id: "65b7fe87d5493d4dd1ddc5e0",
-    title: "Card charge (OLFABRAND FONTANAR)",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "-37.61",
-    date: "2024-01-07T00:00:00",
-    description: "Card charge (OLFABRAND FONTANAR)",
-  },
-  {
-    id: "65b7fe87d5493d4dd1ddc5e1",
-    title: "Card charge (CABA A ALPINA SOPO)",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "-11.37",
-    date: "2024-01-07T00:00:00",
-    description: "Card charge (CABA A ALPINA SOPO)",
-  },
-];
-
-const TransactionList: React.FC<TransactionsItemProps> = ({ transactions }) => {
+export const TransactionList: React.FC<TransactionsItemProps> = ({
+  transactions,
+}) => {
   return (
-    <div className="mt-5 space-y-3">
-      {TRANSACTIONS_EXAMPLE.map((transaction: Transaction) => (
-        <TransactionItem transaction={transaction} />
-      ))}
-    </div>
+    <Card className="xl:col-span-2">
+      <CardHeader className="flex flex-row items-center">
+        <div className="grid gap-2">
+          <CardTitle>Transactions</CardTitle>
+          <CardDescription>
+            Recent transactions from your store.
+          </CardDescription>
+        </div>
+        <Button asChild size="sm" className="ml-auto gap-1">
+          <a href="#">
+            View All
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </Button>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead className="hidden md:table-cell">
+                Description
+              </TableHead>
+              <TableHead className="hidden md:table-cell">Date</TableHead>
+              <TableHead>Amount</TableHead>
+              <TableHead>Category</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {transactions.map((transaction) => (
+              <TableRow key={transaction.id}>
+                <TableCell>
+                  <p>{transaction.title}</p>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <p>{transaction.description}</p>
+                </TableCell>
+                <TableCell className="hidden md:table-cell">
+                  <p>{transaction.date}</p>
+                </TableCell>
+                <TableCell>
+                  <p>{transaction.amount}</p>
+                </TableCell>
+                <TableCell>
+                  <Badge color="success">Success</Badge>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 };
-
-export default TransactionList;

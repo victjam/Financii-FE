@@ -1,15 +1,23 @@
-import { FC, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
 
-const Signup: FC = () => {
+export const Signup = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
   const signup = () => {
     console.log(username, firstName, lastName, email, password);
@@ -18,78 +26,80 @@ const Signup: FC = () => {
   const redirectToLogin = () => {
     navigate("/login");
   };
-
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
-      <div className="flex flex-col space-y-5 w-3/12">
-        <div className="space-y-1">
-          <h1 className="text-3xl font-semibold">Signup</h1>
-          <p className="font-light">Hi, Welcome ✋</p>
-        </div>
-        <div className="space-y-2">
-          <div>
-            <label className="text-xs font-light">Username</label>
-            <Input
-              type="text"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-              name="username"
-              id="username"
-            />
+    <div className="h-screen w-screen flex items-center justify-center">
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-xl">Sign Up</CardTitle>
+          <CardDescription>
+            Enter your information to create an account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="first-name">First name</Label>
+                <Input
+                  onChange={(e) => setFirstName(e.target.value)}
+                  id="first-name"
+                  placeholder="Max"
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="last-name">Last name</Label>
+                <Input
+                  onChange={(e) => setLastName(e.target.value)}
+                  id="last-name"
+                  placeholder="Robinson"
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                onChange={(e) => setEmail(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Username</Label>
+              <Input
+                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                onChange={(e) => setPassword(e.target.value)}
+                id="password"
+                type="password"
+              />
+            </div>
+            <Button onClick={signup} type="submit" className="w-full">
+              Create an account
+            </Button>
+            <Button variant="outline" className="w-full">
+              Sign up with GitHub
+            </Button>
           </div>
-          <div>
-            <label className="text-xs font-light">First Name</label>
-            <Input
-              type="text"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
-              name="firstName"
-              id="firstName"
-            />
-          </div>
-          <div>
-            <label className="text-xs font-light">Last Name</label>
-            <Input
-              type="text"
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
-              name="lastName"
-              id="lastName"
-            />
-          </div>
-          <div>
-            <label className="text-xs font-light">Email</label>
-            <Input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              name="email"
-              id="email"
-            />
-          </div>
-          <div>
-            <label className="text-xs font-light">Password</label>
-            <Input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              name="password"
-              id="password"
-            />
-          </div>
-        </div>
-        <Button onClick={signup}>Signup</Button>
-        <div className="mt-5">
-          <p className="text-xs font-light">
+          <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
-            <a onClick={redirectToLogin} href="#" className="text-primary">
+            <a href="" onClick={redirectToLogin} className="underline">
               Login
             </a>
-          </p>
-        </div>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
-
-export default Signup;
