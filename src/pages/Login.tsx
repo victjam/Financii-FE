@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 
 const Login: FC = () => {
   const [username, setUsername] = useState("");
@@ -42,26 +43,22 @@ const Login: FC = () => {
           <div className="space-y-2">
             <div>
               <label className="text-xs font-light">Username</label>
-              <input
-                type="text"
-                onChange={(e) => setUsername(e.target.value)}
+              <Input
                 value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 name="username"
                 id="username"
-                className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
+                type="text"
               />
             </div>
             <div>
               <label className="text-xs font-light">Password</label>
-              <input
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
+              <Input
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 name="password"
                 id="password"
-                className="mt-1 w-full h-9 p-2  border border-slate-300 rounded-md
-          focus:outline-none focus:border-primary transition-all duration-300 ease-in-out"
+                type="password"
               />
             </div>
           </div>

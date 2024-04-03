@@ -7,12 +7,12 @@ const AuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!state.isAuthenticated) {
+    if (state.isAuthenticated) {
       navigate("/login");
     }
   }, [state.isAuthenticated, navigate]);
 
-  if (!state.isAuthenticated) {
+  if (state.isAuthenticated) {
     return null;
   }
 
