@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Input from "../ui/Input";
-import Button from "../ui/Button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const AddTransactionForm = () => {
   const [amount, setAmount] = useState("");
@@ -46,10 +46,9 @@ const AddTransactionForm = () => {
               />
             </div>
             <div className="mt-1">
-              <Button
-                onClick={() => console.log("added")}
-                text="Add transaction"
-              />
+              <Button onClick={() => console.log("added")}>
+                Add Transaction
+              </Button>
             </div>
           </div>
         </div>

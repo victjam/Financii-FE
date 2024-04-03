@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/ui/Button";
-import Input from "../components/ui/Input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Login: FC = () => {
   const [username, setUsername] = useState("");
@@ -62,7 +62,7 @@ const Login: FC = () => {
               />
             </div>
           </div>
-          <Button onClick={login} text="Login" />
+          <Button onClick={login}>Login</Button>
           <div className="mt-5 flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -77,6 +77,7 @@ const Login: FC = () => {
             <a href="#" className="text-xs font-light text-primary">
               Forgot password?
             </a>
+            B
           </div>
           <div className="mt-5">
             <p className="text-xs font-light">

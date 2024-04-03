@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/ui/Button";
-import Input from "../components/ui/Input";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 
 const Signup: FC = () => {
   const [username, setUsername] = useState("");
@@ -78,7 +78,7 @@ const Signup: FC = () => {
             />
           </div>
         </div>
-        <Button onClick={signup} text="Signup" />
+        <Button onClick={signup}>Signup</Button>
         <div className="mt-5">
           <p className="text-xs font-light">
             Already have an account?{" "}

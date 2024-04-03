@@ -1,35 +1,35 @@
+import { Button } from "@nextui-org/react";
 import TransactionList from "../components/transaction/TransactionList";
-import Button from "../components/ui/Button";
-import MenuItem from "../components/ui/MenuItem";
+// import MenuItem from "../components/ui/MenuItem";
 
 const Home = () => {
-  const MENU_ITEMS = [
-    {
-      name: "Dashboard",
-      icon: "dashboard",
-      link: "/",
-    },
-    {
-      name: "Transactions",
-      icon: "transactions",
-      link: "/transactions",
-    },
-    {
-      name: "Categories",
-      icon: "categories",
-      link: "/categories",
-    },
-    {
-      name: "Reports",
-      icon: "reports",
-      link: "/reports",
-    },
-    {
-      name: "Settings",
-      icon: "settings",
-      link: "/settings",
-    },
-  ];
+  // const MENU_ITEMS = [
+  //   {
+  //     name: "Dashboard",
+  //     icon: "dashboard",
+  //     link: "/",
+  //   },
+  //   {
+  //     name: "Transactions",
+  //     icon: "transactions",
+  //     link: "/transactions",
+  //   },
+  //   {
+  //     name: "Categories",
+  //     icon: "categories",
+  //     link: "/categories",
+  //   },
+  //   {
+  //     name: "Reports",
+  //     icon: "reports",
+  //     link: "/reports",
+  //   },
+  //   {
+  //     name: "Settings",
+  //     icon: "settings",
+  //     link: "/settings",
+  //   },
+  // ];
 
   return (
     <div className="h-screen w-screen  flex flex-row">
@@ -47,9 +47,9 @@ const Home = () => {
           <p className="text-gray-300 text-center text-xs uppercase">
             Main Menu
           </p>
-          {MENU_ITEMS.map((item, index) => (
+          {/* {MENU_ITEMS.map((item, index) => (
             <MenuItem key={index} item={item} />
-          ))}
+          ))} */}
         </div>
       </div>
       <div className="w-10/12 p-5">
@@ -60,12 +60,7 @@ const Home = () => {
               <p className="text-xs text-gray-500">Total Balance</p>
               <p className="text-2xl font-semibold">$ 1,000</p>
             </div>
-            <Button
-              width="w-1/3"
-              fontSize="text-sm"
-              text="Add transaction"
-              onClick={() => {}}
-            />
+            <Button onClick={() => {}}>Add transaction</Button>
           </div>
         </div>
         {/* Recent Transactions */}
