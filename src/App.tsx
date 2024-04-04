@@ -5,26 +5,33 @@ import AuthGuard from "./core/AuthGuard";
 import AddTransactionForm from "./components/transaction/AddTransactionForm";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
+import { ThemeProvider } from "./providers/ThemeProvider";
+import { TransactionList } from "./components/transaction/TransactionList";
+import { Header } from "./components/ui/header";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/add-transaction" element={<AddTransactionForm />} />
-          <Route
-            path="/"
-            element={
-              <AuthGuard>
-                <Home />
-              </AuthGuard>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <AuthProvider>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/add-transaction" element={<AddTransactionForm />} />
+            <Route path="/transaction-list" element={<TransactionList />} />
+            <Route
+              path="/"
+              element={
+                <AuthGuard>
+                  <Home />
+                </AuthGuard>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

@@ -9,42 +9,56 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
+import { ToggleMode } from "./toggleMode";
+import { useNavigate } from "react-router-dom";
+
+const NAVIGATIONS = [
+  {
+    label: "Home",
+    path: "/",
+  },
+  {
+    label: "Transactions",
+    path: "/transaction-list",
+  },
+  {
+    label: "Categories",
+    path: "/categories",
+  },
+  {
+    label: "Reports",
+    path: "/reports",
+  },
+];
 
 export const Header = () => {
+  const navigae = useNavigate();
+  const navigateTo = (path: string) => {
+    navigae(path);
+  };
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-10">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <a
           href="#"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
           <Package2 className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
+          <span className="sr-only">Financii</span>
         </a>
-        <a
-          href="#"
-          className="text-foreground transition-colors hover:text-foreground"
-        >
-          Home
-        </a>
-        <a
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Transactions
-        </a>
-        <a
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Categories
-        </a>
-        <a
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Reports
-        </a>
+        {NAVIGATIONS.map((nav) => (
+          <a
+            key={nav.label}
+            href={nav.path}
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo(nav.path);
+            }}
+            className="text-muted-foreground hover:text-foreground"
+          >
+            {nav.label}
+          </a>
+        ))}
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -62,18 +76,19 @@ export const Header = () => {
               <Package2 className="h-6 w-6" />
               <span className="sr-only">Acme Inc</span>
             </a>
-            <a href="#" className="hover:text-foreground">
-              Home
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">
-              Transactions
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">
-              Categories
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground">
-              Reports
-            </a>
+            {NAVIGATIONS.map((nav) => (
+              <a
+                key={nav.label}
+                href={nav.path}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo(nav.path);
+                }}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                {nav.label}
+              </a>
+            ))}
           </nav>
         </SheetContent>
       </Sheet>
@@ -104,6 +119,7 @@ export const Header = () => {
             <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <ToggleMode />
       </div>
     </header>
   );

@@ -1,9 +1,8 @@
 import { Activity, CreditCard, DollarSign, Users, Plus } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Header } from "@/components/ui/header";
-import { TransactionList } from "@/components/transaction/TransactionList";
+import { RecentTransactions } from "@/components/transaction/RecentTransactions";
 import { Button } from "@/components/ui/button";
 
 const TRANSACTIONS_EXAMPLE = [
@@ -52,7 +51,6 @@ const TRANSACTIONS_EXAMPLE = [
 export const Home = () => {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Header />
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <Card>
@@ -111,7 +109,7 @@ export const Home = () => {
           </a>
         </Button>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <TransactionList transactions={TRANSACTIONS_EXAMPLE} />
+          <RecentTransactions transactions={TRANSACTIONS_EXAMPLE} />
           {/* <Card>
             <CardHeader>
               <CardTitle>Recent Sales</CardTitle>
