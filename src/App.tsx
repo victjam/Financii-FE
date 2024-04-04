@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { AuthProvider } from "./core/AuthProvider";
 import AuthGuard from "./core/AuthGuard";
-import AddTransactionForm from "./components/transaction/AddTransactionForm";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { ThemeProvider } from "./providers/ThemeProvider";
@@ -18,7 +17,6 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/add-transaction" element={<AddTransactionForm />} />
             <Route path="/transaction-list" element={<TransactionList />} />
             <Route
               path="/"

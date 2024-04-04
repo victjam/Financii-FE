@@ -10,6 +10,17 @@ import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
 import { DataTable } from "./table/DataTable";
 import { columns } from "./table/Columns";
+import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import AddTransactionForm from "./TransactionForm";
+import { AddTransactionDialog } from "./AddTransactionDialog";
 
 const TRANSACTIONS_EXAMPLE = [
   {
@@ -204,12 +215,7 @@ export const TransactionList = () => {
             Recent transactions from your store.
           </CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
-          <a href="#">
-            Add Transaction
-            <Plus className="h-4 w-4" />
-          </a>
-        </Button>
+        <AddTransactionDialog />
       </CardHeader>
       <CardContent>
         <DataTable data={TRANSACTIONS_EXAMPLE} columns={columns} />

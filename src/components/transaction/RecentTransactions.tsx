@@ -39,7 +39,7 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
-          <a href="#" onClick={() => navigate("/transaction-list")}>
+          <a href="" onClick={() => navigate("/transaction-list")}>
             View All
             <ArrowUpRight className="h-4 w-4" />
           </a>
