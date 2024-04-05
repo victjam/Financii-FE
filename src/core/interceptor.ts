@@ -1,14 +1,14 @@
 import useAuthStore from "./store/useAuthStore";
 
 export const fetchInterceptor = async (url: string, options: RequestInit) => {
+  const setIsAuthenticated = useAuthStore.getState().setIsAuthenticated;
   try {
     const response = await fetch(url, options);
-    if (response && !response.ok) {
-      if (response.status === 401 || response.status === 403) {
-        const setIsAuthenticated = useAuthStore.getState().setIsAuthenticated;
-        setIsAuthenticated(false);
-      }
-      throw new Error(`Request failed with status ${response.status}`);
+
+    if (response.status === 401 || response.status === 403) {
+      setIsAuthenticated(false);
+
+      throw new Error(`Authentication error with status ${response.status}`);
     }
 
     return response;

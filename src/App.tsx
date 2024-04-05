@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { AuthProvider } from "./core/AuthProvider";
-import AuthGuard from "./core/AuthGuard";
+import { AuthGuard } from "./core/AuthGuard";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { ThemeProvider } from "./providers/ThemeProvider";
@@ -12,25 +11,37 @@ import { CategoryList } from "./components/category/CategoryList";
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <AuthProvider>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/transaction-list" element={<TransactionList />} />
-            <Route path="/categories" element={<CategoryList />} />
-            <Route
-              path="/"
-              element={
-                <AuthGuard>
-                  <Home />
-                </AuthGuard>
-              }
-            />
-          </Routes>
-        </Router>
-      </AuthProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/transaction-list"
+            element={
+              <AuthGuard>
+                <TransactionList />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <AuthGuard>
+                <CategoryList />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <AuthGuard>
+                <Home />
+              </AuthGuard>
+            }
+          />
+        </Routes>
+      </Router>
     </ThemeProvider>
   );
 };

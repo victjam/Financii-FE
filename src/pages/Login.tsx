@@ -8,19 +8,33 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { makeApiRequest } from "@/core/makeApiRequest";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const login = () => {
-    console.log(username, password);
+  const login = async () => {
+    try {
+      setLoading(true);
+      await makeApiRequest("http://127.0.0.1:8000/api/auth/token", "POST", {
+        username: username,
+        password: password,
+      });
+      navigate("/");
+    } catch (error) {
+      setError("Invalid username or password");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const redirectToSignup = () => {
-    login();
     navigate("/signup");
   };
   return (
@@ -35,12 +49,17 @@ export const Login = () => {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
+            {error && (
+              <div className="text-red-500 text-sm text-center bold">
+                {error}
+              </div>
+            )}
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="username">Username</Label>
               <Input
-                id="email"
+                id="username"
                 onChange={(e) => setUsername(e.target.value)}
-                type="email"
+                type="string"
                 required
               />
             </div>
@@ -58,8 +77,14 @@ export const Login = () => {
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
-              Login
+            <Button
+              disabled={loading}
+              type="submit"
+              onClick={login}
+              className="w-full space-x-2"
+            >
+              <span>Login</span>
+              {loading && <LoadingSpinner size={18} className="text-white" />}
             </Button>
             <Button variant="outline" className="w-full">
               Login with Google
