@@ -26,7 +26,8 @@ export const makeApiRequest = async <T>(
     ...additionalOptions,
     body: method !== "GET" && body ? JSON.stringify(body) : undefined,
   };
-  const response = await fetchInterceptor(url, requestOptions);
+  const fullUrl = `http://127.0.0.1:8000/api${url}`;
+  const response = await fetchInterceptor(fullUrl, requestOptions);
   const data: T = await response.json();
   return {
     status: response.status,

@@ -5,5 +5,6 @@ export interface Transaction {
   amount: string;
   date: string;
   category_name: string;
+  category_id: string;
   description: string;
 }

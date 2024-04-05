@@ -41,12 +41,12 @@ export const columns: ColumnDef<Transaction>[] = [
     },
   },
   {
-    accessorKey: "category",
+    accessorKey: "category_name",
     header: "Category",
     cell: ({ row }) => {
       return (
         <Badge className="text-right font-medium">
-          {row.getValue("category")}
+          {row.getValue("category_name")}
         </Badge>
       );
     },

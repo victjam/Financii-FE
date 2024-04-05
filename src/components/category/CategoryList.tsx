@@ -8,8 +8,25 @@ import {
 
 import { AddCategoryDialog } from "./AddCategoryDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useCategoryStore } from "@/store/useCategoryStore";
+import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
+import { Category } from "@/interfaces/category.interface";
+import { useEffect } from "react";
+import { categoryTotals } from "@/util/categories";
+import { useTransactionStore } from "@/store/useTransactionStore";
 
 export const CategoryList = () => {
+  const { transactions } = useTransactionStore();
+  const { setCategories, categories } = useCategoryStore();
+  const { data: categoriesData } = useApiDataFetcher<Category[]>("/categories");
+  const totals = categoryTotals(transactions);
+
+  useEffect(() => {
+    if (categoriesData) {
+      setCategories(categoriesData);
+    }
+  }, [categoriesData, setCategories]);
+
   return (
     <Card className="xl:col-span-2">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -22,66 +39,28 @@ export const CategoryList = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-5">
-        <div className="flex items-center gap-8">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-            <AvatarFallback>F</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Food</p>
-          </div>
-          <div className="ml-auto font-medium">$1,999.00</div>
-        </div>
-        <div className="flex items-center gap-8">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/02.png" alt="Avatar" />
-            <AvatarFallback>F</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Fathers</p>
-          </div>
-          <div className="ml-auto font-medium">$39.00</div>
-        </div>
-        <div className="flex items-center gap-8">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-            <AvatarFallback>F</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Food</p>
-          </div>
-          <div className="ml-auto font-medium">$1,999.00</div>
-        </div>
-        <div className="flex items-center gap-8">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/02.png" alt="Avatar" />
-            <AvatarFallback>F</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Fathers</p>
-          </div>
-          <div className="ml-auto font-medium">$39.00</div>
-        </div>
-        <div className="flex items-center gap-8">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-            <AvatarFallback>F</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Food</p>
-          </div>
-          <div className="ml-auto font-medium">$1,999.00</div>
-        </div>
-        <div className="flex items-center gap-8">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/02.png" alt="Avatar" />
-            <AvatarFallback>F</AvatarFallback>
-          </Avatar>
-          <div className="grid gap-1">
-            <p className="text-sm font-medium leading-none">Fathers</p>
-          </div>
-          <div className="ml-auto font-medium">$39.00</div>
-        </div>
+        {categories.map((category) => {
+          if (typeof category.id !== "undefined") {
+            const totalAmount = totals[category.id] || 0;
+            return (
+              <div key={category.id} className="flex items-center gap-8">
+                <Avatar className="hidden h-9 w-9 sm:flex">
+                  <AvatarImage src="/avatars/01.png" alt="Avatar" />
+                  <AvatarFallback>{category.title.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <p className="text-sm font-medium leading-none">
+                    {category.title}
+                  </p>
+                </div>
+                <div className="ml-auto font-medium">
+                  ${totalAmount.toFixed(2)}
+                </div>
+              </div>
+            );
+          }
+        })}
+        <AddCategoryDialog />
       </CardContent>
     </Card>
   );

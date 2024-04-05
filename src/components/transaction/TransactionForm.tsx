@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,24 +30,31 @@ export const TransactionForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const { addNewTransaction } = useTransactionStore();
-  const { categories } = useCategoryStore();
+  const { categories, setCategories } = useCategoryStore();
   const { user } = useAuthStore();
-  console.log(categories);
+
+  useEffect(() => {
+    console.log("Categories", categories);
+    const fetchCategories = async () => {
+      const response = await makeApiRequest("/categories", "GET");
+      setCategories(response.data);
+    };
+    if (categories.length === 0) {
+      console.log("Fetching categories");
+      fetchCategories();
+    }
+  }, []);
 
   const handleTransaction = async () => {
     try {
-      const response = await makeApiRequest(
-        "http://localhost:8000/api/transactions",
-        "POST",
-        {
-          user_id: user?.id,
-          title,
-          amount,
-          description,
-          category_id: category,
-          date: new Date().toISOString(),
-        }
-      );
+      const response = await makeApiRequest("/transactions", "POST", {
+        user_id: user?.id,
+        title,
+        amount,
+        description,
+        category_id: category,
+        date: new Date().toISOString(),
+      });
       addNewTransaction(response.data as Transaction);
     } catch (error) {
       console.log(error);

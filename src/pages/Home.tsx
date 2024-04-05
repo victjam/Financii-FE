@@ -14,24 +14,15 @@ export const Home = () => {
   const { getTotal, getRecentTransactions, setTransactions } =
     useTransactionStore();
   const { setCategories, getRecentCategories } = useCategoryStore();
-  const { data: transactionsData } = useApiDataFetcher<Transaction[]>(
-    "http://localhost:8000/api/transactions"
-  );
-  const { data: categoriesData } = useApiDataFetcher<Category[]>(
-    "http://localhost:8000/api/categories"
-  );
+  const { data: transactionsData } =
+    useApiDataFetcher<Transaction[]>("/transactions");
+  const { data: categoriesData } = useApiDataFetcher<Category[]>("/categories");
 
   useEffect(() => {
     if (categoriesData) {
       setCategories(categoriesData);
     }
   }, [categoriesData, setCategories]);
-
-  useEffect(() => {
-    if (transactionsData) {
-      setTransactions(transactionsData);
-    }
-  }, [transactionsData, setTransactions]);
 
   useEffect(() => {
     if (transactionsData) {

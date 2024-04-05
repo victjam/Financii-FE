@@ -25,14 +25,10 @@ export const Login = () => {
   const login = async () => {
     try {
       setLoading(true);
-      const response = await makeApiRequest(
-        "http://127.0.0.1:8000/api/auth/token",
-        "POST",
-        {
-          username: username,
-          password: password,
-        }
-      );
+      const response = await makeApiRequest("/auth/token", "POST", {
+        username: username,
+        password: password,
+      });
       setIsAuthenticated(true);
       setUser(response.data.user as User);
       sessionStorage.setItem("token", response.data.access_token);
