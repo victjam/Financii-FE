@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 
 interface TransactionsItemProps {
   transactions: Transaction[];
@@ -68,13 +69,13 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
                   <p>{transaction.description}</p>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  <p>{transaction.date}</p>
+                  <p>{format(new Date(transaction.date), "yyyy-MM-dd")}</p>
                 </TableCell>
                 <TableCell>
                   <p>{transaction.amount}</p>
                 </TableCell>
                 <TableCell>
-                  <Badge color="success">Success</Badge>
+                  <Badge color="success">{transaction.category_name}</Badge>
                 </TableCell>
               </TableRow>
             ))}

@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { makeApiRequest } from "@/core/makeApiRequest";
 import useAuthStore from "@/core/store/useAuthStore";
+import { User } from "@/interfaces/user.interface";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const Login = () => {
@@ -19,7 +20,7 @@ export const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { setIsAuthenticated } = useAuthStore();
+  const { setIsAuthenticated, setUser } = useAuthStore();
 
   const login = async () => {
     try {
@@ -33,7 +34,7 @@ export const Login = () => {
         }
       );
       setIsAuthenticated(true);
-      sessionStorage.setItem("token", response.data.access_token);
+      setUser(response.data.user as User);
       navigate("/");
     } catch (error) {
       setError("Invalid username or password");

@@ -18,15 +18,47 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DialogClose } from "@radix-ui/react-dialog";
+import useTransactionStore from "@/store/useTransactionStore";
+import { makeApiRequest } from "@/core/makeApiRequest";
+import { Transaction } from "@/interfaces/transaction.interface";
+import useAuthStore from "@/core/store/useAuthStore";
 
 export const TransactionForm = () => {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
+  const { addNewTransaction } = useTransactionStore();
+  const { user } = useAuthStore();
+  console.log(user);
 
-  const handleTransaction = () => {
-    console.log(amount, description, title, category);
+  const handleTransaction = async () => {
+    console.log({
+      user_id: user?.id,
+      title,
+      amount,
+      description,
+      category_name: category,
+      date: new Date().toISOString(),
+    });
+    try {
+      const response = await makeApiRequest(
+        "http://localhost:8000/api/transactions",
+        "POST",
+        {
+          user_id: user?.id,
+          title,
+          amount,
+          description,
+          category_name: category,
+          date: new Date().toISOString(),
+        }
+      );
+      addNewTransaction(response.data as Transaction);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (value: string) => {

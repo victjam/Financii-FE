@@ -1,8 +1,9 @@
 export interface Transaction {
-  id: string;
+  id?: string;
+  user_id?: string;
   title: string;
-  user_id: string;
   amount: string;
   date: string;
+  category_name: string;
   description: string;
 }

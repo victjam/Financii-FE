@@ -4,57 +4,22 @@ import { RecentTransactions } from "@/components/transaction/RecentTransactions"
 import { AddTransactionDialog } from "@/components/transaction/AddTransactionDialog";
 import { RecentCategories } from "@/components/category/RecentCategories";
 import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
-
-const TRANSACTIONS_EXAMPLE = [
-  {
-    id: "65b7ce24e1cc7aa971154956",
-    title: "updated title",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "320.0",
-    date: "2024-01-29T12:34:56.789000",
-    description: "Just buy some things number 2",
-  },
-  {
-    id: "65b7ce2ee1cc7aa971154957",
-    title: "nmber 2",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "320.0",
-    date: "2024-01-29T12:34:56.789000",
-    description: "Just buy some things number 2",
-  },
-  {
-    id: "65b7d26b76d941562ec55dd6",
-    title: "Payment from Bill.com - XX-757246  (Victor Jose Manrique A)",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "7,012.17",
-    date: "2023-12-26T00:00:00",
-    description: "Payment from Bill.com - XX-757246  (Victor Jose Manrique A)",
-  },
-  {
-    id: "65b7fe87d5493d4dd1ddc5e0",
-    title: "Card charge (OLFABRAND FONTANAR)",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "-37.61",
-    date: "2024-01-07T00:00:00",
-    description: "Card charge (OLFABRAND FONTANAR)",
-  },
-  {
-    id: "65b7fe87d5493d4dd1ddc5e1",
-    title: "Card charge (CABA A ALPINA SOPO)",
-    user_id: "65b7c9598de7aa48f6aff406",
-    amount: "-11.37",
-    date: "2024-01-07T00:00:00",
-    description: "Card charge (CABA A ALPINA SOPO)",
-  },
-];
+import { Transaction } from "@/interfaces/transaction.interface";
+import useTransactionStore from "@/store/useTransactionStore";
+import { useEffect } from "react";
 
 export const Home = () => {
-  const { data, error, isLoading } = useApiDataFetcher(
+  const { getTotal, getRecentTransactions, setTransactions } =
+    useTransactionStore();
+  const { data: transactionsData } = useApiDataFetcher<Transaction[]>(
     "http://localhost:8000/api/transactions"
   );
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  useEffect(() => {
+    if (transactionsData) {
+      setTransactions(transactionsData);
+    }
+  }, [transactionsData, setTransactions]);
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -66,9 +31,9 @@ export const Home = () => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">${getTotal()}</div>
               <p className="text-xs text-muted-foreground">
-                +20.1% from last month {data?.toString()}
+                +20.1% from last month
               </p>
             </CardContent>
           </Card>
@@ -113,7 +78,7 @@ export const Home = () => {
           <AddTransactionDialog />
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          <RecentTransactions transactions={TRANSACTIONS_EXAMPLE} />
+          <RecentTransactions transactions={getRecentTransactions() || []} />
           <RecentCategories />
         </div>
       </main>
