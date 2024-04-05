@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RecentTransactions } from "@/components/transaction/RecentTransactions";
 import { AddTransactionDialog } from "@/components/transaction/AddTransactionDialog";
 import { RecentCategories } from "@/components/category/RecentCategories";
+import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
 
 const TRANSACTIONS_EXAMPLE = [
   {
@@ -48,6 +49,13 @@ const TRANSACTIONS_EXAMPLE = [
 ];
 
 export const Home = () => {
+  const { data, error, isLoading } = useApiDataFetcher(
+    "http://localhost:8000/api/transactions"
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -60,7 +68,7 @@ export const Home = () => {
             <CardContent>
               <div className="text-2xl font-bold">$45,231.89</div>
               <p className="text-xs text-muted-foreground">
-                +20.1% from last month
+                +20.1% from last month {data?.toString()}
               </p>
             </CardContent>
           </Card>

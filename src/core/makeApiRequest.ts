@@ -23,7 +23,6 @@ export const makeApiRequest = async <T>(
   const requestOptions: RequestInit = {
     method,
     headers,
-    credentials: "include",
     ...additionalOptions,
     body: method !== "GET" && body ? JSON.stringify(body) : undefined,
   };

@@ -1,13 +1,27 @@
 import useAuthStore from "./store/useAuthStore";
 
-export const fetchInterceptor = async (url: string, options: RequestInit) => {
+export const fetchInterceptor = async (
+  url: string,
+  options: RequestInit = {}
+) => {
   const setIsAuthenticated = useAuthStore.getState().setIsAuthenticated;
+
+  const token = sessionStorage.getItem("token");
+  console.log("Token:", token);
+
+  if (token) {
+    options.headers = new Headers(options.headers);
+    options.headers.append("Authorization", `Bearer ${token}`);
+  }
+
   try {
-    const response = await fetch(url, options);
+    const response = await fetch(url, {
+      ...options,
+    });
 
     if (response.status === 401 || response.status === 403) {
+      console.log("Authentication error, logging out");
       setIsAuthenticated(false);
-
       throw new Error(`Authentication error with status ${response.status}`);
     }
 
