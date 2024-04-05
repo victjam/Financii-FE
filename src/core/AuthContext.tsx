@@ -4,7 +4,6 @@ import { AuthContextInterface } from "./interface/authContext.interface";
 const AuthContext = React.createContext<AuthContextInterface>({
   state: {
     isAuthenticated: false,
-    token: null,
   },
   login: () => {},
   logout: () => {},

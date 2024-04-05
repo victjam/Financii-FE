@@ -1,10 +1,9 @@
 export interface AuthContextInterface {
   state: AuthContextStateInterface;
-  login: (token: string) => void;
+  login: () => void;
   logout: () => void;
 }
 
 export interface AuthContextStateInterface {
   isAuthenticated: boolean;
-  token: string | null;
 }

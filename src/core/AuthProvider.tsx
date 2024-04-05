@@ -1,21 +1,18 @@
-import { useState } from "react";
 import AuthContext from "./AuthContext";
-import { AuthContextStateInterface } from "./interface/authContext.interface";
+import useAuthStore from "./store/useAuthStore";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [state, setState] = useState<AuthContextStateInterface>({
-    isAuthenticated: false,
-    token: null,
-  });
+  const { setIsAuthenticated, isAuthenticated } = useAuthStore();
+  const state = { isAuthenticated };
 
-  const login = (token: string) => {
-    setState({ ...state, isAuthenticated: true, token });
+  const login = () => {
+    setIsAuthenticated(true);
   };
 
   const logout = () => {
-    setState({ ...state, isAuthenticated: false, token: null });
+    setIsAuthenticated(false);
   };
 
   return (

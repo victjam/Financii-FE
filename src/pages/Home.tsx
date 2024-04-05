@@ -1,4 +1,4 @@
-import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
+import { DollarSign } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RecentTransactions } from "@/components/transaction/RecentTransactions";
 import { AddTransactionDialog } from "@/components/transaction/AddTransactionDialog";

@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./AuthContext";
+import useAuthStore from "./store/useAuthStore";
 
 const AuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { state } = useContext(AuthContext);
+  const { isAuthenticated } = useAuthStore();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (state.isAuthenticated) {
+    if (isAuthenticated) {
       navigate("/login");
     }
-  }, [state.isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate]);
 
-  if (state.isAuthenticated) {
+  if (isAuthenticated) {
     return null;
   }
 

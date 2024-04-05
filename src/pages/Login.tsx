@@ -41,7 +41,6 @@ export const Login = () => {
                 id="email"
                 onChange={(e) => setUsername(e.target.value)}
                 type="email"
-                placeholder="m@example.com"
                 required
               />
             </div>
