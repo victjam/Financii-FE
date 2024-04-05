@@ -1,3 +1,4 @@
+import { useAlertMessageStore } from "@/store/useAlertMessageStore";
 import useAuthStore from "./store/useAuthStore";
 
 export const fetchInterceptor = async (
@@ -5,6 +6,7 @@ export const fetchInterceptor = async (
   options: RequestInit = {}
 ) => {
   const setIsAuthenticated = useAuthStore.getState().setIsAuthenticated;
+  const setAlert = useAlertMessageStore.getState().setAlert;
 
   const token = sessionStorage.getItem("token");
 
@@ -26,6 +28,10 @@ export const fetchInterceptor = async (
 
     return response;
   } catch (error) {
+    setAlert({
+      enabled: true,
+      message: `Network or other error when requesting ${url}:`,
+    });
     console.error(`Network or other error when requesting ${url}:`, error);
     throw error;
   }

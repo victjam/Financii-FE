@@ -14,10 +14,12 @@ import { makeApiRequest } from "@/core/makeApiRequest";
 import useAuthStore from "@/core/store/useAuthStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { Category } from "@/interfaces/category.interface";
+import { useAlertMessageStore } from "@/store/useAlertMessageStore";
 
 export const CategoryForm = () => {
   const [title, setTitle] = useState("");
   const { user } = useAuthStore();
+  const { setAlert } = useAlertMessageStore();
   const { addNewCategory } = useCategoryStore();
 
   const handleCategory = async () => {
@@ -28,7 +30,7 @@ export const CategoryForm = () => {
       });
       addNewCategory(response.data as Category);
     } catch (error) {
-      console.log(error);
+      setAlert({ enabled: true, message: "Ha ocurrido un error" });
     }
   };
 
