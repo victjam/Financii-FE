@@ -64,7 +64,7 @@ export const Home = () => {
               </p>
             </CardContent>
           </Card>
-          <Card>
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Cash</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
@@ -99,7 +99,7 @@ export const Home = () => {
                 +201 since last hour
               </p>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
         <div className="w-2/12">
           <AddTransactionDialog />

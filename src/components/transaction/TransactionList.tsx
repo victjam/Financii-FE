@@ -4,22 +4,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Button } from "../ui/button";
+} from "@/components/ui/card";
 
-import { Plus } from "lucide-react";
 import { DataTable } from "./table/DataTable";
 import { columns } from "./table/Columns";
-import { useNavigate } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import AddTransactionForm from "./TransactionForm";
 import { AddTransactionDialog } from "./AddTransactionDialog";
 
 const TRANSACTIONS_EXAMPLE = [
@@ -211,9 +199,7 @@ export const TransactionList = () => {
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
           <CardTitle>Transactions</CardTitle>
-          <CardDescription>
-            Recent transactions from your store.
-          </CardDescription>
+          <CardDescription>Recent transactions.</CardDescription>
         </div>
         <AddTransactionDialog />
       </CardHeader>

@@ -7,8 +7,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Label } from "../ui/label";
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
 
 export const CategoryForm = () => {

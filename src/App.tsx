@@ -7,6 +7,7 @@ import { Signup } from "./pages/Signup";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { TransactionList } from "./components/transaction/TransactionList";
 import { Header } from "./components/ui/header";
+import { CategoryList } from "./components/category/CategoryList";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/transaction-list" element={<TransactionList />} />
+            <Route path="/categories" element={<CategoryList />} />
             <Route
               path="/"
               element={
