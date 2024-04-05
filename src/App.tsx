@@ -7,42 +7,48 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { TransactionList } from "./components/transaction/TransactionList";
 import { Header } from "./components/ui/header";
 import { CategoryList } from "./components/category/CategoryList";
+import { AlertDestructive } from "./components/ui/error-alert";
+import { useAlertMessageStore } from "./store/useAlertMessageStore";
 
 const App = () => {
+  const { alert } = useAlertMessageStore();
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/transaction-list"
-            element={
-              <AuthGuard>
-                <TransactionList />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path="/categories"
-            element={
-              <AuthGuard>
-                <CategoryList />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <AuthGuard>
-                <Home />
-              </AuthGuard>
-            }
-          />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <>
+      {alert.enabled && <AlertDestructive error={alert.message} />}
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/transaction-list"
+              element={
+                <AuthGuard>
+                  <TransactionList />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="/categories"
+              element={
+                <AuthGuard>
+                  <CategoryList />
+                </AuthGuard>
+              }
+            />
+            <Route
+              path="/"
+              element={
+                <AuthGuard>
+                  <Home />
+                </AuthGuard>
+              }
+            />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </>
   );
 };
 

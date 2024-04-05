@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +23,7 @@ import { makeApiRequest } from "@/core/makeApiRequest";
 import { Transaction } from "@/interfaces/transaction.interface";
 import useAuthStore from "@/core/store/useAuthStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
+import { useAlertMessageStore } from "@/store/useAlertMessageStore";
 
 export const TransactionForm = () => {
   const [amount, setAmount] = useState("");
@@ -32,6 +33,7 @@ export const TransactionForm = () => {
   const { addNewTransaction } = useTransactionStore();
   const { categories } = useCategoryStore();
   const { user } = useAuthStore();
+  const { setAlert } = useAlertMessageStore();
 
   const handleTransaction = async () => {
     try {
@@ -45,7 +47,7 @@ export const TransactionForm = () => {
       });
       addNewTransaction(response.data as Transaction);
     } catch (error) {
-      console.log(error);
+      setAlert({ enabled: true, message: "Ha ocurrido un error" });
     }
   };
 
