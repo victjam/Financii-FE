@@ -30,20 +30,8 @@ export const TransactionForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const { addNewTransaction } = useTransactionStore();
-  const { categories, setCategories } = useCategoryStore();
+  const { categories } = useCategoryStore();
   const { user } = useAuthStore();
-
-  useEffect(() => {
-    console.log("Categories", categories);
-    const fetchCategories = async () => {
-      const response = await makeApiRequest("/categories", "GET");
-      setCategories(response.data);
-    };
-    if (categories.length === 0) {
-      console.log("Fetching categories");
-      fetchCategories();
-    }
-  }, []);
 
   const handleTransaction = async () => {
     try {
@@ -112,6 +100,7 @@ export const TransactionForm = () => {
             <Label htmlFor="email">Amount</Label>
             <Input
               id="amount"
+              min="0"
               onChange={(e) => setAmount(e.target.value)}
               type="number"
               required

@@ -28,6 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCategoryStore } from "@/store/useCategoryStore";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -55,8 +56,14 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const { categories } = useCategoryStore();
+
   const handleChange = (value: string) => {
-    table.getColumn("category")?.setFilterValue(value);
+    if (value === "all") {
+      table.getColumn("category_name")?.setFilterValue(undefined);
+      return;
+    }
+    table.getColumn("category_name")?.setFilterValue(value);
   };
 
   return (
@@ -75,9 +82,12 @@ export function DataTable<TData, TValue>({
             <SelectValue placeholder="Categories" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="success">Success</SelectItem>
-            <SelectItem value="failed">Failed</SelectItem>
-            <SelectItem value="food">food</SelectItem>
+            <SelectItem value="all">All</SelectItem>
+            {categories.map((category) => (
+              <SelectItem key={category.id} value={category.title}>
+                {category.title}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

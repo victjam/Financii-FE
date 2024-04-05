@@ -13,9 +13,12 @@ import { Transaction } from "@/interfaces/transaction.interface";
 import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
 import { useEffect } from "react";
 import { useTransactionStore } from "@/store/useTransactionStore";
+import { useCategoryStore } from "@/store/useCategoryStore";
+import { makeApiRequest } from "@/core/makeApiRequest";
 
 export const TransactionList = () => {
   const { setTransactions, transactions } = useTransactionStore();
+  const { categories, setCategories } = useCategoryStore();
   const { data: transactionsData } =
     useApiDataFetcher<Transaction[]>("/transactions");
 
@@ -24,6 +27,18 @@ export const TransactionList = () => {
       setTransactions(transactionsData);
     }
   }, [transactionsData, setTransactions]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await makeApiRequest("/categories", "GET");
+      setCategories(response.data);
+    };
+    console.log(categories.length);
+    if (categories.length === 0) {
+      console.log("Fetching categories");
+      fetchCategories();
+    }
+  }, []);
 
   return (
     <Card className="xl:col-span-2">

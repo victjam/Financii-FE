@@ -10,12 +10,26 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { makeApiRequest } from "@/core/makeApiRequest";
+import useAuthStore from "@/core/store/useAuthStore";
+import { useCategoryStore } from "@/store/useCategoryStore";
+import { Category } from "@/interfaces/category.interface";
 
 export const CategoryForm = () => {
   const [title, setTitle] = useState("");
+  const { user } = useAuthStore();
+  const { addNewCategory } = useCategoryStore();
 
-  const handleCategory = () => {
-    console.log(title);
+  const handleCategory = async () => {
+    try {
+      const response = await makeApiRequest("/categories", "POST", {
+        title,
+        user_id: user?.id,
+      });
+      addNewCategory(response.data as Category);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

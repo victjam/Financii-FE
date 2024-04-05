@@ -29,6 +29,11 @@ export const makeApiRequest = async <T>(
   const fullUrl = `http://127.0.0.1:8000/api${url}`;
   const response = await fetchInterceptor(fullUrl, requestOptions);
   const data: T = await response.json();
+  if (!response.ok) {
+    throw new Error(
+      `API error with status ${response.status}: ${JSON.stringify(data)}`
+    );
+  }
   return {
     status: response.status,
     statusText: response.statusText,
