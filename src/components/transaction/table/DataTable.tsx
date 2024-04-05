@@ -56,7 +56,6 @@ export function DataTable<TData, TValue>({
   });
 
   const handleChange = (value: string) => {
-    console.log(value);
     table.getColumn("category")?.setFilterValue(value);
   };
 

@@ -7,7 +7,6 @@ export const fetchInterceptor = async (
   const setIsAuthenticated = useAuthStore.getState().setIsAuthenticated;
 
   const token = sessionStorage.getItem("token");
-  console.log("Token:", token);
 
   if (token) {
     options.headers = new Headers(options.headers);

@@ -18,10 +18,11 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { DialogClose } from "@radix-ui/react-dialog";
-import useTransactionStore from "@/store/useTransactionStore";
+import { useTransactionStore } from "@/store/useTransactionStore";
 import { makeApiRequest } from "@/core/makeApiRequest";
 import { Transaction } from "@/interfaces/transaction.interface";
 import useAuthStore from "@/core/store/useAuthStore";
+import { useCategoryStore } from "@/store/useCategoryStore";
 
 export const TransactionForm = () => {
   const [amount, setAmount] = useState("");
@@ -29,18 +30,11 @@ export const TransactionForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const { addNewTransaction } = useTransactionStore();
+  const { categories } = useCategoryStore();
   const { user } = useAuthStore();
-  console.log(user);
+  console.log(categories);
 
   const handleTransaction = async () => {
-    console.log({
-      user_id: user?.id,
-      title,
-      amount,
-      description,
-      category_name: category,
-      date: new Date().toISOString(),
-    });
     try {
       const response = await makeApiRequest(
         "http://localhost:8000/api/transactions",
@@ -50,12 +44,11 @@ export const TransactionForm = () => {
           title,
           amount,
           description,
-          category_name: category,
+          category_id: category,
           date: new Date().toISOString(),
         }
       );
       addNewTransaction(response.data as Transaction);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -100,9 +93,11 @@ export const TransactionForm = () => {
                 <SelectValue placeholder="Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="success">Success</SelectItem>
-                <SelectItem value="failed">Failed</SelectItem>
-                <SelectItem value="food">Food</SelectItem>
+                {categories.map((category) => (
+                  <SelectItem key={category.id} value={category.id as string}>
+                    {category.title}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

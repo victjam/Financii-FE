@@ -35,6 +35,7 @@ export const Login = () => {
       );
       setIsAuthenticated(true);
       setUser(response.data.user as User);
+      sessionStorage.setItem("token", response.data.access_token);
       navigate("/");
     } catch (error) {
       setError("Invalid username or password");

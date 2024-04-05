@@ -5,15 +5,33 @@ import { AddTransactionDialog } from "@/components/transaction/AddTransactionDia
 import { RecentCategories } from "@/components/category/RecentCategories";
 import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
 import { Transaction } from "@/interfaces/transaction.interface";
-import useTransactionStore from "@/store/useTransactionStore";
+import { useTransactionStore } from "@/store/useTransactionStore";
 import { useEffect } from "react";
+import { Category } from "@/interfaces/category.interface";
+import { useCategoryStore } from "@/store/useCategoryStore";
 
 export const Home = () => {
   const { getTotal, getRecentTransactions, setTransactions } =
     useTransactionStore();
+  const { setCategories, getRecentCategories } = useCategoryStore();
   const { data: transactionsData } = useApiDataFetcher<Transaction[]>(
     "http://localhost:8000/api/transactions"
   );
+  const { data: categoriesData } = useApiDataFetcher<Category[]>(
+    "http://localhost:8000/api/categories"
+  );
+
+  useEffect(() => {
+    if (categoriesData) {
+      setCategories(categoriesData);
+    }
+  }, [categoriesData, setCategories]);
+
+  useEffect(() => {
+    if (transactionsData) {
+      setTransactions(transactionsData);
+    }
+  }, [transactionsData, setTransactions]);
 
   useEffect(() => {
     if (transactionsData) {
@@ -79,7 +97,7 @@ export const Home = () => {
         </div>
         <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
           <RecentTransactions transactions={getRecentTransactions() || []} />
-          <RecentCategories />
+          <RecentCategories categories={getRecentCategories() || []} />
         </div>
       </main>
     </div>

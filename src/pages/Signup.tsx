@@ -19,9 +19,7 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signup = () => {
-    console.log(username, firstName, lastName, email, password);
-  };
+  const signup = () => {};
 
   const redirectToLogin = () => {
     navigate("/login");
