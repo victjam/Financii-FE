@@ -25,10 +25,10 @@ const NAVIGATIONS = [
     label: "Categories",
     path: "/categories",
   },
-  {
-    label: "Reports",
-    path: "/reports",
-  },
+  // {
+  //   label: "Reports",
+  //   path: "/reports",
+  // },
 ];
 
 export const Header = () => {
