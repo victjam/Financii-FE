@@ -16,11 +16,11 @@ export const columns: ColumnDef<Transaction>[] = [
     header: "Description",
   },
   {
-    accessorKey: "date",
+    accessorKey: "createdAt",
     header: "Date",
     cell: ({ row }) => {
       const formattedDate = format(
-        new Date(row.getValue("date")),
+        new Date(row.getValue("createdAt")),
         "yyyy-MM-dd"
       );
       return formattedDate;

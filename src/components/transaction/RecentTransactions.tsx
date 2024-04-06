@@ -69,7 +69,7 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
                   <p>{transaction.description}</p>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  <p>{format(new Date(transaction.date), "yyyy-MM-dd")}</p>
+                  <p>{format(new Date(transaction.createdAt), "yyyy-MM-dd")}</p>
                 </TableCell>
                 <TableCell>
                   <p>{transaction.amount}</p>
