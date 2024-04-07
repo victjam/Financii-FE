@@ -4,23 +4,27 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
-import { DataTable } from "./table/DataTable";
-import { columns } from "./table/Columns";
-import { AddTransactionDialog } from "./AddTransactionDialog";
-import { Transaction } from "@/interfaces/transaction.interface";
-import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
-import { useEffect } from "react";
-import { useTransactionStore } from "@/store/useTransactionStore";
-import { useCategoryStore } from "@/store/useCategoryStore";
-import { makeApiRequest } from "@/core/makeApiRequest";
+import { DataTable } from './table/DataTable';
+import { columns } from './table/Columns';
+import { AddTransactionDialog } from './AddTransactionDialog';
+import { type Transaction } from '@/interfaces/transaction.interface';
+import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
+import { useEffect } from 'react';
+import { useTransactionStore } from '@/store/useTransactionStore';
+import { useCategoryStore } from '@/store/useCategoryStore';
+import { makeApiRequest } from '@/core/makeApiRequest';
+
+interface TransactionResponse {
+  data: Transaction[];
+}
 
 export const TransactionList = () => {
   const { setTransactions, transactions } = useTransactionStore();
   const { categories, setCategories } = useCategoryStore();
   const { data: transactionsData } =
-    useApiDataFetcher<Transaction[]>("/transactions");
+    useApiDataFetcher<Transaction[]>('/transactions');
 
   useEffect(() => {
     if (transactionsData) {
@@ -30,12 +34,15 @@ export const TransactionList = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await makeApiRequest("/categories", "GET");
+      const response: TransactionResponse = await makeApiRequest(
+        '/categories',
+        'GET'
+      );
       setCategories(response.data);
     };
     console.log(categories.length);
     if (categories.length === 0) {
-      console.log("Fetching categories");
+      console.log('Fetching categories');
       fetchCategories();
     }
   }, []);

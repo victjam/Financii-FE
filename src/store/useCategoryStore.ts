@@ -1,5 +1,5 @@
-import { Category } from "@/interfaces/category.interface";
-import { create } from "zustand";
+import { type Category } from '@/interfaces/category.interface';
+import { create } from 'zustand';
 
 export interface CategoryStoreState {
   categories: Category[];
@@ -13,7 +13,9 @@ export const useCategoryStore = create<CategoryStoreState>((set, get) => ({
   getRecentCategories: () => {
     return get().categories.slice(-5);
   },
-  setCategories: (categories: Category[]) => set({ categories }),
+  setCategories: (categories: Category[]) => {
+    set({ categories });
+  },
   addNewCategory: (category: Category) => {
     set((state) => ({
       categories: [...state.categories, category],

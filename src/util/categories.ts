@@ -1,20 +1,21 @@
-import { Transaction } from "@/interfaces/transaction.interface";
+import { type Transaction } from '@/interfaces/transaction.interface';
 
-interface CategoryTotals {
-  [key: string]: number;
-}
+type CategoryTotals = Record<string, number>;
 
 export const categoryTotals = (transactions: Transaction[]): CategoryTotals => {
-  return transactions.reduce((acc: CategoryTotals, transaction) => {
-    const amount = parseFloat(transaction.amount);
-    const categoryId = transaction.category_id;
-    if (!isNaN(amount)) {
-      if (acc[categoryId]) {
-        acc[categoryId] += amount;
-      } else {
-        acc[categoryId] = amount;
+  return transactions.reduce<CategoryTotals>(
+    (acc: CategoryTotals, transaction) => {
+      const amount = parseFloat(transaction.amount);
+      const categoryId = transaction.category_id;
+      if (!isNaN(amount)) {
+        if (acc[categoryId]) {
+          acc[categoryId] += amount;
+        } else {
+          acc[categoryId] = amount;
+        }
       }
-    }
-    return acc;
-  }, {} as CategoryTotals);
+      return acc;
+    },
+    {}
+  );
 };

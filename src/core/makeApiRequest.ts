@@ -1,13 +1,13 @@
-import { fetchInterceptor } from "./interceptor";
+import { fetchInterceptor } from './interceptor';
 
-export type HttpResponse<T> = {
+export interface HttpResponse<T> {
   ok?: boolean;
   status: number;
   statusText?: string;
   headers?: Headers;
   data: T;
   error?: string;
-};
+}
 
 export const makeApiRequest = async <T>(
   url: string,
@@ -15,16 +15,16 @@ export const makeApiRequest = async <T>(
   body?: unknown,
   additionalOptions?: RequestInit
 ): Promise<HttpResponse<T>> => {
-  const headers = new Headers(additionalOptions?.headers || {});
-  if (method !== "GET" && !headers.has("Content-Type")) {
-    headers.append("Content-Type", "application/json");
+  const headers = new Headers(additionalOptions?.headers);
+  if (method !== 'GET' && !headers.has('Content-Type')) {
+    headers.append('Content-Type', 'application/json');
   }
 
   const requestOptions: RequestInit = {
     method,
     headers,
     ...additionalOptions,
-    body: method !== "GET" && body ? JSON.stringify(body) : undefined,
+    body: method !== 'GET' && body ? JSON.stringify(body) : undefined,
   };
   const fullUrl = `http://127.0.0.1:8000/api${url}`;
   const response = await fetchInterceptor(fullUrl, requestOptions);

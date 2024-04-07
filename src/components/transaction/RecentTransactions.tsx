@@ -1,15 +1,15 @@
-import React from "react";
-import { Transaction } from "../../interfaces/transaction.interface";
+import React from 'react';
+import { type Transaction } from '../../interfaces/transaction.interface';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -17,10 +17,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
-import { format } from "date-fns";
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 interface TransactionsItemProps {
   transactions: Transaction[];
@@ -40,9 +40,14 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
-          <a href="" onClick={() => navigate("/transaction-list")}>
+          <a
+            href=""
+            onClick={() => {
+              navigate('/transaction-list');
+            }}
+          >
             View All
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="size-4" />
           </a>
         </Button>
       </CardHeader>
@@ -69,10 +74,14 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
                   <p>{transaction.description}</p>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  <p>{format(new Date(transaction.createdAt), "yyyy-MM-dd")}</p>
+                  <p>{format(new Date(transaction.createdAt), 'yyyy-MM-dd')}</p>
                 </TableCell>
                 <TableCell>
-                  <p>{transaction.amount}</p>
+                  <Badge
+                    className={`${transaction.type === 'income' ? 'text-green-500' : 'text-red-500'}`}
+                  >
+                    ${transaction.amount}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <Badge color="success">{transaction.category_name}</Badge>

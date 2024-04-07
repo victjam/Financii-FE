@@ -1,5 +1,5 @@
-import { useAlertMessageStore } from "@/store/useAlertMessageStore";
-import useAuthStore from "./store/useAuthStore";
+import { useAlertMessageStore } from '@/store/useAlertMessageStore';
+import useAuthStore from './store/useAuthStore';
 
 export const fetchInterceptor = async (
   url: string,
@@ -8,11 +8,11 @@ export const fetchInterceptor = async (
   const setIsAuthenticated = useAuthStore.getState().setIsAuthenticated;
   const setAlert = useAlertMessageStore.getState().setAlert;
 
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem('token');
 
   if (token) {
     options.headers = new Headers(options.headers);
-    options.headers.append("Authorization", `Bearer ${token}`);
+    options.headers.append('Authorization', `Bearer ${token}`);
   }
 
   try {
@@ -21,7 +21,7 @@ export const fetchInterceptor = async (
     });
 
     if (response.status === 401 || response.status === 403) {
-      console.log("Authentication error, logging out");
+      console.log('Authentication error, logging out');
       setIsAuthenticated(false);
       throw new Error(`Authentication error with status ${response.status}`);
     }

@@ -1,5 +1,5 @@
-import { Transaction } from "@/interfaces/transaction.interface";
-import { create } from "zustand";
+import { type Transaction } from '@/interfaces/transaction.interface';
+import { create } from 'zustand';
 
 export interface TransactionStoreState {
   transactions: Transaction[];
@@ -15,7 +15,9 @@ export const useTransactionStore = create<TransactionStoreState>(
     getRecentTransactions: () => {
       return get().transactions.slice(-5);
     },
-    setTransactions: (transactions: Transaction[]) => set({ transactions }),
+    setTransactions: (transactions: Transaction[]) => {
+      set({ transactions });
+    },
     getTotal: () => {
       return get().transactions.reduce((total, transaction) => {
         const amount = parseFloat(transaction.amount);

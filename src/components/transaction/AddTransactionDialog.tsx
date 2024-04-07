@@ -5,10 +5,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { TransactionForm } from "./TransactionForm";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { TransactionForm } from './TransactionForm';
 
 export const AddTransactionDialog = () => {
   return (
@@ -16,7 +16,7 @@ export const AddTransactionDialog = () => {
       <DialogTrigger asChild>
         <Button size="sm" className="ml-auto gap-1">
           Add Transaction
-          <Plus className="h-4 w-4" />
+          <Plus className="size-4" />
         </Button>
       </DialogTrigger>
       <DialogContent>

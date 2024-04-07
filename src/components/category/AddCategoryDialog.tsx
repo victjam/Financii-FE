@@ -5,15 +5,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { CategoryForm } from "./CategoryForm";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { CategoryForm } from './CategoryForm';
 
-export const AddCategoryDialog = () => {
+export const AddCategoryDialog: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm" className="w-full ml-auto gap-1">
+        <Button size="sm" className="ml-auto w-full gap-1">
           Add Category
         </Button>
       </DialogTrigger>

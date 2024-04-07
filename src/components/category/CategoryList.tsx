@@ -1,24 +1,24 @@
+import React, { useEffect } from 'react';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
-import { AddCategoryDialog } from "./AddCategoryDialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useCategoryStore } from "@/store/useCategoryStore";
-import { useApiDataFetcher } from "@/Hooks/useApiDataFetcher";
-import { Category } from "@/interfaces/category.interface";
-import { useEffect } from "react";
-import { categoryTotals } from "@/util/categories";
-import { useTransactionStore } from "@/store/useTransactionStore";
+import { AddCategoryDialog } from './AddCategoryDialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useCategoryStore } from '@/store/useCategoryStore';
+import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
+import { type Category } from '@/interfaces/category.interface';
+import { categoryTotals } from '@/util/categories';
+import { useTransactionStore } from '@/store/useTransactionStore';
 
-export const CategoryList = () => {
+export const CategoryList: React.FC = () => {
   const { transactions } = useTransactionStore();
   const { setCategories, categories } = useCategoryStore();
-  const { data: categoriesData } = useApiDataFetcher<Category[]>("/categories");
+  const { data: categoriesData } = useApiDataFetcher<Category[]>('/categories');
   const totals = categoryTotals(transactions);
 
   useEffect(() => {
@@ -40,11 +40,11 @@ export const CategoryList = () => {
       </CardHeader>
       <CardContent className="space-y-5">
         {categories.map((category) => {
-          if (typeof category.id !== "undefined") {
+          if (typeof category.id !== 'undefined') {
             const totalAmount = totals[category.id] || 0;
             return (
               <div key={category.id} className="flex items-center gap-8">
-                <Avatar className="hidden h-9 w-9 sm:flex">
+                <Avatar className="hidden size-9 sm:flex">
                   <AvatarImage src="/avatars/01.png" alt="Avatar" />
                   <AvatarFallback>{category.title.charAt(0)}</AvatarFallback>
                 </Avatar>

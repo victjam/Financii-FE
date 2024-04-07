@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface Alert {
   enabled: boolean;
@@ -13,12 +13,12 @@ export interface AlertMessageStoreState {
 export const useAlertMessageStore = create<AlertMessageStoreState>((set) => ({
   alert: {
     enabled: false,
-    message: "",
+    message: '',
   },
   setAlert: (alert: Alert) => {
     set({ alert });
     setTimeout(() => {
-      set({ alert: { enabled: false, message: "" } });
+      set({ alert: { enabled: false, message: '' } });
     }, 3000);
   },
 }));

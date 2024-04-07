@@ -1,6 +1,6 @@
-import { CircleUser, Menu, Package2 } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "./sheet";
-import { Button } from "./button";
+import { CircleUser, Menu, Package2 } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from './sheet';
+import { Button } from './button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,22 +8,22 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
-import { ToggleMode } from "./toggleMode";
-import { useNavigate } from "react-router-dom";
+} from './dropdown-menu';
+import { ToggleMode } from './toggleMode';
+import { useNavigate } from 'react-router-dom';
 
 const NAVIGATIONS = [
   {
-    label: "Home",
-    path: "/",
+    label: 'Home',
+    path: '/',
   },
   {
-    label: "Transactions",
-    path: "/transaction-list",
+    label: 'Transactions',
+    path: '/transaction-list',
   },
   {
-    label: "Categories",
-    path: "/categories",
+    label: 'Categories',
+    path: '/categories',
   },
   // {
   //   label: "Reports",
@@ -37,13 +37,13 @@ export const Header = () => {
     navigae(path);
   };
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-10">
+    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <a
           href="#"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <Package2 className="h-6 w-6" />
+          <Package2 className="size-6" />
           <span className="sr-only">Financii</span>
         </a>
         {NAVIGATIONS.map((nav) => (
@@ -63,7 +63,7 @@ export const Header = () => {
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
+            <Menu className="size-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
@@ -73,7 +73,7 @@ export const Header = () => {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <Package2 className="h-6 w-6" />
+              <Package2 className="size-6" />
               <span className="sr-only">Acme Inc</span>
             </a>
             {NAVIGATIONS.map((nav) => (
@@ -106,7 +106,7 @@ export const Header = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
-              <CircleUser className="h-5 w-5" />
+              <CircleUser className="size-5" />
               <span className="sr-only">Toggle user menu</span>
             </Button>
           </DropdownMenuTrigger>
