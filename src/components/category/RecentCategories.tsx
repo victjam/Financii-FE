@@ -15,7 +15,6 @@ export const RecentCategories: React.FC<CategoriesItemProps> = ({
 }) => {
   const { transactions } = useTransactionStore();
   const totals = categoryTotals(transactions);
-  console.log(totals);
 
   return (
     <Card>

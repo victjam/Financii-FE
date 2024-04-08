@@ -106,8 +106,8 @@ export const Login = () => {
               <span>Login</span>
               {loading && <LoadingSpinner size={18} className="text-white" />}
             </Button>
-            <Button variant="outline" className="w-full">
-              Login with Google
+            <Button disabled variant="outline" className="w-full">
+              Login with Github
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">

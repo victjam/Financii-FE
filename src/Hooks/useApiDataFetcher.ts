@@ -7,6 +7,6 @@ export const useApiDataFetcher = <T>(url: string) => {
     return response.data;
   };
 
-  const { data, error, isLoading } = useSWR<T>(url, useFetcherData);
-  return { data, error, isLoading };
+  const { data, error, isLoading, mutate } = useSWR<T>(url, useFetcherData);
+  return { data, error, isLoading, mutate };
 };

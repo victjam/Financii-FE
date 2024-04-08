@@ -52,44 +52,54 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
         </Button>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Description
-              </TableHead>
-              <TableHead className="hidden md:table-cell">Date</TableHead>
-              <TableHead>Amount</TableHead>
-              <TableHead>Category</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell>
-                  <p>{transaction.title}</p>
-                </TableCell>
-                <TableCell className="hidden md:table-cell">
-                  <p>{transaction.description}</p>
-                </TableCell>
-                <TableCell className="hidden md:table-cell">
-                  <p>{format(new Date(transaction.createdAt), 'yyyy-MM-dd')}</p>
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    className={`${transaction.type === 'income' ? 'text-green-500' : 'text-red-500'}`}
-                  >
-                    ${transaction.amount}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge color="success">{transaction.category_name}</Badge>
-                </TableCell>
+        {transactions.length === 0 ? (
+          <div className="flex w-full items-center justify-center">
+            <p className="text-gray-700">No results</p>
+          </div>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Title</TableHead>
+                <TableHead className="hidden md:table-cell">
+                  Description
+                </TableHead>
+                <TableHead className="hidden md:table-cell">Date</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Category</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {transactions.map((transaction) => (
+                <TableRow key={transaction.id}>
+                  <TableCell>
+                    <p>{transaction.title}</p>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <p>{transaction.description}</p>
+                  </TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    <p>
+                      {transaction.createdAt
+                        ? format(new Date(transaction.createdAt), 'yyyy-MM-dd')
+                        : 'N/A'}
+                    </p>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      className={`${transaction.type === 'income' ? 'text-green-500' : 'text-red-500'}`}
+                    >
+                      ${transaction.amount}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge color="success">{transaction.category_name}</Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );

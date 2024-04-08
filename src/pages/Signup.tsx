@@ -8,8 +8,18 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { makeApiRequest } from '@/core/makeApiRequest';
+import useAuthStore from '@/core/store/useAuthStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { type User } from '@/interfaces/user.interface';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
+
+interface LoginResponse {
+  user: User;
+  access_token: string;
+}
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -18,14 +28,50 @@ export const Signup = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { setIsAuthenticated, setUser } = useAuthStore();
 
-  const signup = () => {
-    console.log(username, firstName, lastName, email, password);
+  const login = async () => {
+    try {
+      setLoading(true);
+      const { data } = await makeApiRequest<LoginResponse>(
+        '/auth/token',
+        'POST',
+        {
+          username,
+          password,
+        }
+      );
+      setIsAuthenticated(true);
+      setUser(data.user);
+      sessionStorage.setItem('token', data.access_token);
+      navigate('/');
+    } catch (error) {
+      console.log('Invalid username or password');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signup = async () => {
+    try {
+      setLoading(true);
+      await makeApiRequest('/users', 'POST', {
+        username,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        password,
+      });
+      await login();
+      redirectToLogin();
+    } catch (error) {}
   };
 
   const redirectToLogin = () => {
-    navigate('/login');
+    navigate('/home');
   };
+
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <Card className="mx-auto max-w-sm">
@@ -95,8 +141,9 @@ export const Signup = () => {
                 type="password"
               />
             </div>
-            <Button onClick={signup} type="submit" className="w-full">
-              Create an account
+            <Button onClick={signup} type="submit" className="w-full gap-2">
+              <span>Create account</span>
+              {loading && <LoadingSpinner size={18} className="text-white" />}
             </Button>
             <Button variant="outline" className="w-full">
               Sign up with GitHub

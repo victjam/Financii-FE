@@ -40,9 +40,7 @@ export const TransactionList = () => {
       );
       setCategories(response.data);
     };
-    console.log(categories.length);
     if (categories.length === 0) {
-      console.log('Fetching categories');
       fetchCategories();
     }
   }, []);

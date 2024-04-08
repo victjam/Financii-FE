@@ -25,6 +25,7 @@ import useAuthStore from '@/core/store/useAuthStore';
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 import { useAccountStore } from '@/store/useAccountStore';
+import { Account } from '@/interfaces/account.interface';
 
 export const TransactionForm: React.FC = () => {
   const [amount, setAmount] = useState('');
@@ -32,6 +33,7 @@ export const TransactionForm: React.FC = () => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const { addNewTransaction } = useTransactionStore();
+  const { setAccounts: updateAccounts } = useAccountStore();
   const { categories } = useCategoryStore();
   const { accounts } = useAccountStore();
   const { user } = useAuthStore();
@@ -51,6 +53,8 @@ export const TransactionForm: React.FC = () => {
         date: new Date().toISOString(),
       });
       addNewTransaction(response.data as Transaction);
+      const accountResponse = await makeApiRequest('/accounts', 'GET');
+      updateAccounts(accountResponse.data as Account[]);
     } catch (error) {
       setAlert({ enabled: true, message: 'Ha ocurrido un error' });
     }
