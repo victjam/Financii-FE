@@ -8,18 +8,27 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { AccountForm } from './AccountForm';
+import { type Account } from '@/interfaces/account.interface';
 
-export const AccountDialog: React.FC = () => {
+interface AccountDialogProps {
+  account?: Account;
+}
+
+export const AccountDialog = ({ account }: AccountDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="h-full w-28 text-2xl">+</Button>
+        {account ? (
+          <Button size="xs">Edit</Button>
+        ) : (
+          <Button className="h-full w-28 text-2xl">+</Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>New account</DialogTitle>
+          <DialogTitle>{account ? 'Update' : 'Add'} account</DialogTitle>
           <DialogDescription asChild>
-            <AccountForm />
+            <AccountForm account={account} />
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

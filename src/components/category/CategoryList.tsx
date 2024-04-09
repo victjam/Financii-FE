@@ -15,10 +15,11 @@ import { type Category } from '@/interfaces/category.interface';
 import { categoryTotals } from '@/util/categories';
 import { useTransactionStore } from '@/store/useTransactionStore';
 import { formatCurrency } from '@/util/currency';
+import { Button } from '../ui/button';
 
 export const CategoryList: React.FC = () => {
   const { transactions } = useTransactionStore();
-  const { setCategories, categories } = useCategoryStore();
+  const { setCategories, categories, deleteCategory } = useCategoryStore();
   const { data: categoriesData } = useApiDataFetcher<Category[]>('/categories');
   const totals = categoryTotals(transactions);
 
@@ -57,6 +58,19 @@ export const CategoryList: React.FC = () => {
                 <div className="ml-auto font-medium">
                   {formatCurrency(totalAmount)}
                 </div>
+
+                {category && (
+                  <div className="flex flex-row justify-end gap-2">
+                    <AddCategoryDialog title="Edit" category={category} />
+                    <Button
+                      size="sm"
+                      onClick={() => deleteCategory(category.id ?? '')}
+                      className="text-red-500"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )}
               </div>
             );
           }

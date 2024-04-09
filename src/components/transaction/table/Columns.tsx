@@ -65,10 +65,10 @@ export function useColumns(): Array<ColumnDef<Transaction, unknown>> {
       accessorKey: 'id',
       header: 'Actions',
       cell: ({ row }) => (
-        <div className="flex flex-row justify-end">
+        <div className="flex flex-row justify-end gap-2">
           <AddTransactionDialog title="Edit" transaction={row.original} />
           <Button
-            variant="ghost"
+            size="sm"
             onClick={() => deleteTransaction(row.getValue('id'))}
             className="text-red-500"
           >

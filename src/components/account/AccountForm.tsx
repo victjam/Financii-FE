@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,20 +15,38 @@ import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 import { useAccountStore } from '@/store/useAccountStore';
 import { type Account } from '@/interfaces/account.interface';
 
-export const AccountForm: React.FC = () => {
+interface AccountFormProps {
+  account?: Account;
+}
+
+export const AccountForm = ({ account }: AccountFormProps) => {
   const [name, setName] = useState('');
   const [balance, setBalance] = useState(0);
   const [type, setType] = useState('');
   const { setAlert } = useAlertMessageStore();
-  const { addNewAccount } = useAccountStore();
+  const { addNewAccount, updateExistingAccount } = useAccountStore();
+
+  useEffect(() => {
+    if (account) {
+      setName(account.name);
+      setBalance(account.balance ?? 0);
+      setType(account.type);
+    }
+  }, [account]);
 
   const handleAccount = async () => {
+    const method = account ? 'PUT' : 'POST';
+    const url = account ? `/accounts/${account.id}` : '/accounts';
     try {
-      const response = await makeApiRequest('/accounts', 'POST', {
+      const response = await makeApiRequest(url, method, {
         name,
         type,
         balance,
       });
+      if (account) {
+        updateExistingAccount(response.data as Account);
+        return;
+      }
       addNewAccount(response.data as Account);
     } catch (error) {
       setAlert({ enabled: true, message: 'Ha ocurrido un error' });
@@ -48,6 +66,7 @@ export const AccountForm: React.FC = () => {
           <div className="grid gap-2">
             <Label htmlFor="name">Title</Label>
             <Input
+              value={name}
               id="name"
               onChange={(e) => {
                 setName(e.target.value);
@@ -60,6 +79,7 @@ export const AccountForm: React.FC = () => {
           <div className="grid gap-2">
             <Label htmlFor="type">Type</Label>
             <Input
+              value={type}
               id="type"
               onChange={(e) => {
                 setType(e.target.value);
@@ -73,6 +93,7 @@ export const AccountForm: React.FC = () => {
             <Label htmlFor="type">Balance inicial</Label>
             <Input
               id="type"
+              disabled={!!account}
               value={balance}
               onChange={(e) => {
                 setBalance(parseInt(e.target.value, 10));

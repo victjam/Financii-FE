@@ -13,11 +13,12 @@ import { useAccountStore } from '@/store/useAccountStore';
 import { type Account } from '@/interfaces/account.interface';
 import { AccountDialog } from '@/components/account/AccountDialog';
 import { formatCurrency } from '@/util/currency';
+import { Button } from '@/components/ui/button';
 
 export const Home = () => {
   const { getRecentTransactions, setTransactions } = useTransactionStore();
   const { setCategories, getRecentCategories } = useCategoryStore();
-  const { accounts, setAccounts } = useAccountStore();
+  const { accounts, setAccounts, deleteAccount } = useAccountStore();
   const { data: transactionsData } =
     useApiDataFetcher<Transaction[]>('/transactions');
   const { data: categoriesData } = useApiDataFetcher<Category[]>('/categories');
@@ -46,20 +47,29 @@ export const Home = () => {
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           {accounts.map((account) => (
-            <Card key={account.id}>
+            <Card className="group transition-all" key={account.id}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   {account.name}
                 </CardTitle>
                 <DollarSign className="size-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
+              <CardContent className="transition-all">
                 <div className="text-2xl font-bold">
                   {formatCurrency(account.balance ?? 0)}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {account.type.charAt(0).toUpperCase() + account.type.slice(1)}
                 </p>
+                <div className="invisible flex justify-end gap-2  group-hover:visible ">
+                  <AccountDialog account={account} />
+                  <Button
+                    size="xs"
+                    onClick={() => deleteAccount(account.id ?? '')}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           ))}

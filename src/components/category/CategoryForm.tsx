@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,28 +11,41 @@ import {
 import { Label } from '@/components/ui/label';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { makeApiRequest } from '@/core/makeApiRequest';
-import useAuthStore from '@/core/store/useAuthStore';
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { type Category } from '@/interfaces/category.interface';
 import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 
-export const CategoryForm: React.FC = () => {
+interface CategoryFormProps {
+  category?: Category;
+}
+
+export const CategoryForm = ({ category }: CategoryFormProps) => {
   const [title, setTitle] = useState('');
-  const { user } = useAuthStore();
   const { setAlert } = useAlertMessageStore();
-  const { addNewCategory } = useCategoryStore();
+  const { addNewCategory, updateExistingCategory } = useCategoryStore();
 
   const handleCategory = async () => {
+    const method = category ? 'PUT' : 'POST';
+    const url = category ? `/categories/${category.id}` : '/categories';
     try {
-      const response = await makeApiRequest('/categories', 'POST', {
+      const response = await makeApiRequest(url, method, {
         title,
-        user_id: user?.id,
       });
-      addNewCategory(response.data as Category);
+      if (category) {
+        updateExistingCategory(response.data as Category);
+      } else {
+        addNewCategory(response.data as Category);
+      }
     } catch (error) {
       setAlert({ enabled: true, message: 'Ha ocurrido un error' });
     }
   };
+
+  useEffect(() => {
+    if (category) {
+      setTitle(category.title);
+    }
+  }, [category]);
 
   return (
     <Card className="border-0 shadow-none">
@@ -47,6 +60,7 @@ export const CategoryForm: React.FC = () => {
           <div className="grid gap-2">
             <Label htmlFor="email">Title</Label>
             <Input
+              value={title}
               id="title"
               onChange={(e) => {
                 setTitle(e.target.value);
@@ -63,7 +77,7 @@ export const CategoryForm: React.FC = () => {
               onClick={handleCategory}
               className="w-full"
             >
-              Add new category
+              {category ? 'Update' : 'Create'}
             </Button>
           </DialogClose>
         </div>

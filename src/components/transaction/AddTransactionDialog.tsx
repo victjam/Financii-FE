@@ -23,11 +23,7 @@ export const AddTransactionDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          size="sm"
-          variant={title ? 'ghost' : 'default'}
-          className="ml-auto gap-1"
-        >
+        <Button size="sm" className="ml-auto gap-1">
           {title ?? 'Add transaction'}
           {!title && <Plus className="size-4" />}
         </Button>
