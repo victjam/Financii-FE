@@ -14,6 +14,7 @@ import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
 import { type Category } from '@/interfaces/category.interface';
 import { categoryTotals } from '@/util/categories';
 import { useTransactionStore } from '@/store/useTransactionStore';
+import { formatCurrency } from '@/util/currency';
 
 export const CategoryList: React.FC = () => {
   const { transactions } = useTransactionStore();
@@ -54,7 +55,7 @@ export const CategoryList: React.FC = () => {
                   </p>
                 </div>
                 <div className="ml-auto font-medium">
-                  ${totalAmount.toFixed(2)}
+                  {formatCurrency(totalAmount)}
                 </div>
               </div>
             );

@@ -21,6 +21,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { formatCurrency } from '@/util/currency';
 
 interface TransactionsItemProps {
   transactions: Transaction[];
@@ -89,7 +90,7 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
                     <Badge
                       className={`${transaction.type === 'income' ? 'text-green-500' : 'text-red-500'}`}
                     >
-                      ${transaction.amount}
+                      {formatCurrency(transaction.amount)}
                     </Badge>
                   </TableCell>
                   <TableCell>

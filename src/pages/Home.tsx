@@ -11,7 +11,8 @@ import { type Category } from '@/interfaces/category.interface';
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { useAccountStore } from '@/store/useAccountStore';
 import { type Account } from '@/interfaces/account.interface';
-import { Button } from '@/components/ui/button';
+import { AccountDialog } from '@/components/account/AccountDialog';
+import { formatCurrency } from '@/util/currency';
 
 export const Home = () => {
   const { getRecentTransactions, setTransactions } = useTransactionStore();
@@ -53,16 +54,16 @@ export const Home = () => {
                 <DollarSign className="size-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{account.balance}</div>
+                <div className="text-2xl font-bold">
+                  {formatCurrency(account.balance ?? 0)}
+                </div>
                 <p className="text-xs text-muted-foreground">
                   {account.type.charAt(0).toUpperCase() + account.type.slice(1)}
                 </p>
               </CardContent>
             </Card>
           ))}
-          {accounts.length < 3 && (
-            <Button className="h-full w-28 text-2xl">+</Button>
-          )}
+          {accounts.length < 3 && <AccountDialog />}
         </div>
         <div className="w-2/12">
           <AddTransactionDialog />

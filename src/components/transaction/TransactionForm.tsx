@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,14 +25,19 @@ import useAuthStore from '@/core/store/useAuthStore';
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 import { useAccountStore } from '@/store/useAccountStore';
-import { Account } from '@/interfaces/account.interface';
+import { type Account } from '@/interfaces/account.interface';
 
-export const TransactionForm: React.FC = () => {
+interface TransactionFormProps {
+  transaction?: Transaction;
+}
+
+export const TransactionForm = ({ transaction }: TransactionFormProps) => {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
-  const { addNewTransaction } = useTransactionStore();
+  const { addNewTransaction, updateExistingTransaction } =
+    useTransactionStore();
   const { setAccounts: updateAccounts } = useAccountStore();
   const { categories } = useCategoryStore();
   const { accounts } = useAccountStore();
@@ -41,8 +46,12 @@ export const TransactionForm: React.FC = () => {
   const [type, setType] = useState('');
   const [account, setAccount] = useState('');
   const handleTransaction = async (): Promise<void> => {
+    const method = transaction ? 'PUT' : 'POST';
+    const url = transaction
+      ? `/transactions/${transaction.id}`
+      : '/transactions';
     try {
-      const response = await makeApiRequest('/transactions', 'POST', {
+      const response = await makeApiRequest(url, method, {
         user_id: user?.id,
         title,
         amount,
@@ -50,14 +59,22 @@ export const TransactionForm: React.FC = () => {
         type,
         account_id: account,
         category_id: category,
-        date: new Date().toISOString(),
       });
-      addNewTransaction(response.data as Transaction);
-      const accountResponse = await makeApiRequest('/accounts', 'GET');
-      updateAccounts(accountResponse.data as Account[]);
+      if (transaction) {
+        updateExistingTransaction(response.data as Transaction);
+      } else {
+        addNewTransaction(response.data as Transaction);
+      }
+      updateAccountsData();
+      await updateAccountsData();
     } catch (error) {
       setAlert({ enabled: true, message: 'Ha ocurrido un error' });
     }
+  };
+
+  const updateAccountsData = async (): Promise<void> => {
+    const accountResponse = await makeApiRequest('/accounts', 'GET');
+    updateAccounts(accountResponse.data as Account[]);
   };
 
   const onClickHandler = (): void => {
@@ -68,6 +85,18 @@ export const TransactionForm: React.FC = () => {
       });
     });
   };
+
+  useEffect(() => {
+    if (transaction) {
+      console.log(transaction);
+      setAmount(transaction.amount);
+      setDescription(transaction.description);
+      setTitle(transaction.title);
+      setCategory(transaction.category_id);
+      setType(transaction.type);
+      setAccount(transaction.account_id);
+    }
+  }, [transaction]);
 
   return (
     <Card className="border-0 shadow-none">
@@ -108,6 +137,7 @@ export const TransactionForm: React.FC = () => {
             <Label htmlFor="email">Title</Label>
             <Input
               id="title"
+              value={title}
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
@@ -120,6 +150,7 @@ export const TransactionForm: React.FC = () => {
             <Label htmlFor="email">Description</Label>
             <Textarea
               id="description"
+              value={description}
               onChange={(e) => {
                 setDescription(e.target.value);
               }}
@@ -128,7 +159,10 @@ export const TransactionForm: React.FC = () => {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Category</Label>
-            <Select onValueChange={(value) => setCategory(value)}>
+            <Select
+              value={category}
+              onValueChange={(value) => setCategory(value)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Categories" />
               </SelectTrigger>
@@ -143,7 +177,10 @@ export const TransactionForm: React.FC = () => {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Account</Label>
-            <Select onValueChange={(value) => setAccount(value)}>
+            <Select
+              value={account}
+              onValueChange={(value) => setAccount(value)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Accounts" />
               </SelectTrigger>
@@ -160,6 +197,7 @@ export const TransactionForm: React.FC = () => {
             <Label htmlFor="email">Amount</Label>
             <Input
               id="amount"
+              value={amount}
               min="0"
               onChange={(e) => {
                 setAmount(e.target.value);
@@ -181,7 +219,7 @@ export const TransactionForm: React.FC = () => {
               onClick={onClickHandler}
               className="w-full"
             >
-              Add new transaction
+              {transaction ? 'Update' : 'Add'}
             </Button>
           </DialogClose>
         </div>

@@ -5,6 +5,7 @@ import { AddCategoryDialog } from './AddCategoryDialog';
 import { type Category } from '@/interfaces/category.interface';
 import { useTransactionStore } from '@/store/useTransactionStore';
 import { categoryTotals } from '@/util/categories';
+import { formatCurrency } from '@/util/currency';
 
 interface CategoriesItemProps {
   categories: Category[];
@@ -36,7 +37,7 @@ export const RecentCategories: React.FC<CategoriesItemProps> = ({
                 </p>
               </div>
               <div className="ml-auto font-medium">
-                ${totalAmount.toFixed(2)}
+                {formatCurrency(totalAmount)}
               </div>
             </div>
           );

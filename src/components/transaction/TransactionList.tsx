@@ -7,7 +7,6 @@ import {
 } from '@/components/ui/card';
 
 import { DataTable } from './table/DataTable';
-import { columns } from './table/Columns';
 import { AddTransactionDialog } from './AddTransactionDialog';
 import { type Transaction } from '@/interfaces/transaction.interface';
 import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
@@ -15,13 +14,18 @@ import { useEffect } from 'react';
 import { useTransactionStore } from '@/store/useTransactionStore';
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { makeApiRequest } from '@/core/makeApiRequest';
+import { useColumns } from './table/Columns';
+import { useAccountStore } from '@/store/useAccountStore';
+import { type Account } from '@/interfaces/account.interface';
 
 interface TransactionResponse {
   data: Transaction[];
 }
 
 export const TransactionList = () => {
+  const columns = useColumns();
   const { setTransactions, transactions } = useTransactionStore();
+  const { accounts, setAccounts } = useAccountStore();
   const { categories, setCategories } = useCategoryStore();
   const { data: transactionsData } =
     useApiDataFetcher<Transaction[]>('/transactions');
@@ -40,8 +44,16 @@ export const TransactionList = () => {
       );
       setCategories(response.data);
     };
+
+    const fetchAccounts = async () => {
+      const { data } = await makeApiRequest<Account[]>('/accounts', 'GET');
+      setAccounts(data);
+    };
     if (categories.length === 0) {
       fetchCategories();
+    }
+    if (accounts.length === 0) {
+      fetchAccounts();
     }
   }, []);
 

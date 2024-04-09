@@ -6,6 +6,7 @@ export interface CategoryStoreState {
   getRecentCategories: () => Category[];
   setCategories: (categories: Category[]) => void;
   addNewCategory: (categories: Category) => void;
+  filterCategoriesById: (id: string) => Category | undefined;
 }
 
 export const useCategoryStore = create<CategoryStoreState>((set, get) => ({
@@ -20,5 +21,8 @@ export const useCategoryStore = create<CategoryStoreState>((set, get) => ({
     set((state) => ({
       categories: [...state.categories, category],
     }));
+  },
+  filterCategoriesById: (id: string) => {
+    return get().categories.find((category) => category.id === id);
   },
 }));
