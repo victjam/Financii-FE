@@ -16,13 +16,9 @@ import { useAccountStore } from '@/store/useAccountStore';
 
 import { createAccount, updateAccount } from '@/core/services/account';
 
-import { type Account } from '@/interfaces/account.interface';
+import { type AccountComponentProps } from './account.interface';
 
-interface AccountFormProps {
-  account?: Account;
-}
-
-export const AccountForm = ({ account }: AccountFormProps) => {
+export const AccountForm = ({ account }: AccountComponentProps) => {
   const MESSAGE = !account ? 'Adding a new account?' : 'Updating the account?';
   const [name, setName] = useState('');
   const [balance, setBalance] = useState(0);

@@ -1,7 +1,7 @@
 import { DollarSign, Trash2 } from 'lucide-react';
 import { useEffect } from 'react';
 
-import { AccountDialog } from '@/components/account/AccountDialog';
+import { AccountDialog } from '@/components/account';
 import { RecentCategories } from '@/components/category/RecentCategories';
 import { AddTransactionDialog } from '@/components/transaction/AddTransactionDialog';
 import { RecentTransactions } from '@/components/transaction/RecentTransactions';

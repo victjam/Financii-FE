@@ -10,15 +10,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-import { type Account } from '@/interfaces/account.interface';
-
+import { type AccountComponentProps } from './account.interface';
 import { AccountForm } from './AccountForm';
 
-interface AccountDialogProps {
-  account?: Account;
-}
-
-export const AccountDialog = ({ account }: AccountDialogProps) => {
+export const AccountDialog = ({ account }: AccountComponentProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
