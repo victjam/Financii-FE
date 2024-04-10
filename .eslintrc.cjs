@@ -27,6 +27,58 @@ module.exports = {
         sourceType: 'script',
         project: ['./tsconfig.json'],
       },
+      rules: {
+        'import/order': [
+          'error',
+          {
+            'newlines-between': 'always',
+            groups: [
+              ['builtin', 'external'],
+              'internal',
+              'parent',
+              'sibling',
+              'index',
+            ],
+            pathGroups: [
+              {
+                pattern: '@/components/**',
+                group: 'internal',
+                position: 'after',
+              },
+              {
+                pattern: '@/hooks/**',
+                group: 'internal',
+                position: 'after',
+              },
+              {
+                pattern: '@/store/**',
+                group: 'internal',
+                position: 'after',
+              },
+              {
+                pattern: '@/core/**',
+                group: 'internal',
+                position: 'after',
+              },
+              {
+                pattern: '@/util/**',
+                group: 'internal',
+                position: 'after',
+              },
+              {
+                pattern: '@/interfaces/**',
+                group: 'internal',
+                position: 'after',
+              },
+            ],
+            pathGroupsExcludedImportTypes: ['builtin'],
+            alphabetize: {
+              order: 'asc',
+              caseInsensitive: true,
+            },
+          },
+        ],
+      },
     },
   ],
   parserOptions: {

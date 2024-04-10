@@ -1,3 +1,6 @@
+import { Pencil, Plus } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,9 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { AccountForm } from './AccountForm';
+
 import { type Account } from '@/interfaces/account.interface';
+
+import { AccountForm } from './AccountForm';
 
 interface AccountDialogProps {
   account?: Account;
@@ -19,9 +23,13 @@ export const AccountDialog = ({ account }: AccountDialogProps) => {
     <Dialog>
       <DialogTrigger asChild>
         {account ? (
-          <Button size="xs">Edit</Button>
+          <Button size="xs" variant="outline">
+            <Pencil className="size-4 text-yellow-500" />
+          </Button>
         ) : (
-          <Button className="h-full w-28 text-2xl">+</Button>
+          <Button className="h-full w-28 text-2xl">
+            <Plus />
+          </Button>
         )}
       </DialogTrigger>
       <DialogContent>

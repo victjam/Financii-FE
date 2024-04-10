@@ -1,6 +1,8 @@
-import { makeApiRequest } from '@/core/makeApiRequest';
-import { type Transaction } from '@/interfaces/transaction.interface';
 import { create } from 'zustand';
+
+import { makeApiRequest } from '@/core/makeApiRequest';
+
+import { type Transaction } from '@/interfaces/transaction.interface';
 
 export interface TransactionStoreState {
   transactions: Transaction[];

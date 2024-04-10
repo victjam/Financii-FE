@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Card,
   CardContent,
@@ -7,15 +9,19 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-import { AddCategoryDialog } from './AddCategoryDialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useCategoryStore } from '@/store/useCategoryStore';
-import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
-import { type Category } from '@/interfaces/category.interface';
-import { categoryTotals } from '@/util/categories';
 import { useTransactionStore } from '@/store/useTransactionStore';
+
+import { categoryTotals } from '@/util/categories';
 import { formatCurrency } from '@/util/currency';
+
+import { type Category } from '@/interfaces/category.interface';
+
 import { Button } from '../ui/button';
+
+import { AddCategoryDialog } from './AddCategoryDialog';
+
+import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
 
 export const CategoryList: React.FC = () => {
   const { transactions } = useTransactionStore();

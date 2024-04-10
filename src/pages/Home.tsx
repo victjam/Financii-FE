@@ -1,24 +1,36 @@
-import { DollarSign } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { RecentTransactions } from '@/components/transaction/RecentTransactions';
-import { AddTransactionDialog } from '@/components/transaction/AddTransactionDialog';
-import { RecentCategories } from '@/components/category/RecentCategories';
-import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
-import { type Transaction } from '@/interfaces/transaction.interface';
-import { useTransactionStore } from '@/store/useTransactionStore';
+import { DollarSign, Trash2 } from 'lucide-react';
 import { useEffect } from 'react';
-import { type Category } from '@/interfaces/category.interface';
-import { useCategoryStore } from '@/store/useCategoryStore';
-import { useAccountStore } from '@/store/useAccountStore';
-import { type Account } from '@/interfaces/account.interface';
+
 import { AccountDialog } from '@/components/account/AccountDialog';
-import { formatCurrency } from '@/util/currency';
+import { RecentCategories } from '@/components/category/RecentCategories';
+import { AddTransactionDialog } from '@/components/transaction/AddTransactionDialog';
+import { RecentTransactions } from '@/components/transaction/RecentTransactions';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { DeleteDialogConfirmation } from '@/components/ui/delete-dialog-confirmation';
+
+import { useAccountStore } from '@/store/useAccountStore';
+import { useCategoryStore } from '@/store/useCategoryStore';
+import { useTransactionStore } from '@/store/useTransactionStore';
+
+import { deleteAccount } from '@/core/services/account';
+
+import { formatCurrency } from '@/util/currency';
+
+import { type Account } from '@/interfaces/account.interface';
+import { type Category } from '@/interfaces/category.interface';
+import { type Transaction } from '@/interfaces/transaction.interface';
+
+import { useApiDataFetcher } from '@/Hooks/useApiDataFetcher';
 
 export const Home = () => {
   const { getRecentTransactions, setTransactions } = useTransactionStore();
   const { setCategories, getRecentCategories } = useCategoryStore();
-  const { accounts, setAccounts, deleteAccount } = useAccountStore();
+  const {
+    accounts,
+    setAccounts,
+    deleteAccount: deleteAccountMutation,
+  } = useAccountStore();
   const { data: transactionsData } =
     useApiDataFetcher<Transaction[]>('/transactions');
   const { data: categoriesData } = useApiDataFetcher<Category[]>('/categories');
@@ -42,6 +54,11 @@ export const Home = () => {
     }
   }, [accountData, setAccounts]);
 
+  const deleteAccountProcess = async (id: string) => {
+    await deleteAccount(id);
+    deleteAccountMutation(id);
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
@@ -61,14 +78,18 @@ export const Home = () => {
                 <p className="text-xs text-muted-foreground">
                   {account.type.charAt(0).toUpperCase() + account.type.slice(1)}
                 </p>
-                <div className="invisible flex justify-end gap-2  group-hover:visible ">
+                <div className="flex justify-end gap-2 opacity-0 transition-all animate-in group-hover:opacity-100">
                   <AccountDialog account={account} />
-                  <Button
-                    size="xs"
-                    onClick={() => deleteAccount(account.id ?? '')}
+                  <DeleteDialogConfirmation
+                    onCancel={() => console.log('cancel')}
+                    onConfirm={async () =>
+                      await deleteAccountProcess(account.id ?? '')
+                    }
                   >
-                    Delete
-                  </Button>
+                    <Button variant="outline" size="xs">
+                      <Trash2 className="size-4 text-red-500" />
+                    </Button>
+                  </DeleteDialogConfirmation>
                 </div>
               </CardContent>
             </Card>

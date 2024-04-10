@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
+
+import { CategoryList } from './components/category/CategoryList';
+import { TransactionList } from './components/transaction/TransactionList';
+import { AlertDestructive } from './components/ui/error-alert';
+import { Header } from './components/ui/header';
 import { AuthGuard } from './core/AuthGuard';
+import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { ThemeProvider } from './providers/ThemeProvider';
-import { TransactionList } from './components/transaction/TransactionList';
-import { Header } from './components/ui/header';
-import { CategoryList } from './components/category/CategoryList';
-import { AlertDestructive } from './components/ui/error-alert';
 import { useAlertMessageStore } from './store/useAlertMessageStore';
 
 const App = () => {

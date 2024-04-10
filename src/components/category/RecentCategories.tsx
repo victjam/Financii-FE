@@ -1,11 +1,16 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { AddCategoryDialog } from './AddCategoryDialog';
-import { type Category } from '@/interfaces/category.interface';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 import { useTransactionStore } from '@/store/useTransactionStore';
+
 import { categoryTotals } from '@/util/categories';
 import { formatCurrency } from '@/util/currency';
+
+import { type Category } from '@/interfaces/category.interface';
+
+import { AddCategoryDialog } from './AddCategoryDialog';
 
 interface CategoriesItemProps {
   categories: Category[];

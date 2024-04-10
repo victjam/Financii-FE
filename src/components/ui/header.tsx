@@ -1,5 +1,6 @@
 import { CircleUser, Menu, Package2 } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from './sheet';
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from './button';
 import {
   DropdownMenu,
@@ -9,8 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from './sheet';
 import { ToggleMode } from './toggleMode';
-import { useNavigate } from 'react-router-dom';
 
 const NAVIGATIONS = [
   {

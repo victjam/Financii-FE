@@ -1,5 +1,6 @@
-import { makeApiRequest } from '@/core/makeApiRequest';
 import useSWR from 'swr';
+
+import { makeApiRequest } from '@/core/makeApiRequest';
 
 export const useApiDataFetcher = <T>(url: string) => {
   const useFetcherData = async () => {

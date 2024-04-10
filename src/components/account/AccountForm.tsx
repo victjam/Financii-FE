@@ -1,5 +1,6 @@
+import { DialogClose } from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
-import { Input } from '@/components/ui/input';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -8,11 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DialogClose } from '@radix-ui/react-dialog';
-import { makeApiRequest } from '@/core/makeApiRequest';
-import { useAlertMessageStore } from '@/store/useAlertMessageStore';
+
 import { useAccountStore } from '@/store/useAccountStore';
+
+import { createAccount, updateAccount } from '@/core/services/account';
+
 import { type Account } from '@/interfaces/account.interface';
 
 interface AccountFormProps {
@@ -20,11 +23,11 @@ interface AccountFormProps {
 }
 
 export const AccountForm = ({ account }: AccountFormProps) => {
+  const message = !account ? 'Adding a new account?' : 'Updating the account?';
   const [name, setName] = useState('');
   const [balance, setBalance] = useState(0);
   const [type, setType] = useState('');
-  const { setAlert } = useAlertMessageStore();
-  const { addNewAccount, updateExistingAccount } = useAccountStore();
+  const { upsertAccount } = useAccountStore();
 
   useEffect(() => {
     if (account) {
@@ -34,32 +37,22 @@ export const AccountForm = ({ account }: AccountFormProps) => {
     }
   }, [account]);
 
-  const handleAccount = async () => {
-    const method = account ? 'PUT' : 'POST';
-    const url = account ? `/accounts/${account.id}` : '/accounts';
-    try {
-      const response = await makeApiRequest(url, method, {
-        name,
-        type,
-        balance,
-      });
-      if (account) {
-        updateExistingAccount(response.data as Account);
-        return;
-      }
-      addNewAccount(response.data as Account);
-    } catch (error) {
-      setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+  const handleAccountProcess = async () => {
+    let accountResponse;
+    if (!account) {
+      accountResponse = await createAccount({ name, balance, type });
+    } else {
+      accountResponse = await updateAccount({ id: account.id, name, type });
     }
+    if (!accountResponse) return;
+    upsertAccount(accountResponse);
   };
 
   return (
     <Card className="border-0 shadow-none">
       <CardHeader>
         <CardTitle className="text-2xl">Hey, what&apos;s up!</CardTitle>
-        <CardDescription>
-          Adding a new account?, let me help you with that.
-        </CardDescription>
+        <CardDescription>{message}, let me help you with that.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
@@ -107,10 +100,10 @@ export const AccountForm = ({ account }: AccountFormProps) => {
             <Button
               disabled={!name || !type}
               type="submit"
-              onClick={handleAccount}
+              onClick={handleAccountProcess}
               className="w-full"
             >
-              Add new account
+              {!account ? 'Create account' : 'Update account'}
             </Button>
           </DialogClose>
         </div>

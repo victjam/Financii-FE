@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -8,13 +11,12 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
+
 import { makeApiRequest } from '@/core/makeApiRequest';
 import useAuthStore from '@/core/store/useAuthStore';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { type User } from '@/interfaces/user.interface';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 interface LoginResponse {
   user: User;

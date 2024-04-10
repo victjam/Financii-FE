@@ -1,5 +1,10 @@
+import { format } from 'date-fns';
+import { ArrowUpRight } from 'lucide-react';
 import React from 'react';
-import { type Transaction } from '../../interfaces/transaction.interface';
+import { useNavigate } from 'react-router-dom';
+
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -7,9 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-
-import { ArrowUpRight } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -18,10 +20,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
+
 import { formatCurrency } from '@/util/currency';
+
+import { type Transaction } from '../../interfaces/transaction.interface';
 
 interface TransactionsItemProps {
   transactions: Transaction[];

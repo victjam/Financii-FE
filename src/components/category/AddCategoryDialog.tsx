@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,9 +7,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { CategoryForm } from './CategoryForm';
+
 import { type Category } from '@/interfaces/category.interface';
+
+import { CategoryForm } from './CategoryForm';
 
 interface AddCategoryDialogProps {
   title?: string;

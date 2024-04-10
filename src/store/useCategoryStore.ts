@@ -1,7 +1,10 @@
-import { makeApiRequest } from '@/core/makeApiRequest';
-import { type Category } from '@/interfaces/category.interface';
 import { create } from 'zustand';
+
 import { useAlertMessageStore } from '@/store/useAlertMessageStore';
+
+import { makeApiRequest } from '@/core/makeApiRequest';
+
+import { type Category } from '@/interfaces/category.interface';
 
 export interface CategoryStoreState {
   categories: Category[];
