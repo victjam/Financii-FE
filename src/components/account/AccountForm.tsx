@@ -23,7 +23,7 @@ interface AccountFormProps {
 }
 
 export const AccountForm = ({ account }: AccountFormProps) => {
-  const message = !account ? 'Adding a new account?' : 'Updating the account?';
+  const MESSAGE = !account ? 'Adding a new account?' : 'Updating the account?';
   const [name, setName] = useState('');
   const [balance, setBalance] = useState(0);
   const [type, setType] = useState('');
@@ -52,7 +52,7 @@ export const AccountForm = ({ account }: AccountFormProps) => {
     <Card className="border-0 shadow-none">
       <CardHeader>
         <CardTitle className="text-2xl">Hey, what&apos;s up!</CardTitle>
-        <CardDescription>{message}, let me help you with that.</CardDescription>
+        <CardDescription>{MESSAGE}, let me help you with that.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
