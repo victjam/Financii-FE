@@ -1,5 +1,6 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -21,7 +22,6 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 
 import { useAccountStore } from '@/store/useAccountStore';
-import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { useTransactionStore } from '@/store/useTransactionStore';
 
@@ -46,7 +46,6 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
   const { categories } = useCategoryStore();
   const { accounts } = useAccountStore();
   const { user } = useAuthStore();
-  const { setAlert } = useAlertMessageStore();
   const [type, setType] = useState('');
   const [account, setAccount] = useState('');
   const handleTransaction = async (): Promise<void> => {
@@ -69,10 +68,11 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
       } else {
         addNewTransaction(response.data as Transaction);
       }
+      toast.success('Transaction added successfully!');
       updateAccountsData();
       await updateAccountsData();
     } catch (error) {
-      setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+      toast.error('An error occurred');
     }
   };
 
@@ -82,11 +82,8 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
   };
 
   const onClickHandler = (): void => {
-    handleTransaction().catch((error) => {
-      setAlert({
-        message: error.message,
-        enabled: true,
-      });
+    handleTransaction().catch(() => {
+      toast.error('An error occurred');
     });
   };
 

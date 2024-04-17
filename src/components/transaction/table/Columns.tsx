@@ -1,9 +1,10 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, Trash2 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { DeleteDialogConfirmation } from '@/components/ui/delete-dialog-confirmation';
 
 import { useTransactionStore } from '@/store/useTransactionStore';
 
@@ -72,13 +73,14 @@ export function useColumns(): Array<ColumnDef<Transaction, unknown>> {
       cell: ({ row }) => (
         <div className="flex flex-row justify-end gap-2">
           <AddTransactionDialog title="Edit" transaction={row.original} />
-          <Button
-            size="sm"
-            onClick={() => deleteTransaction(row.getValue('id'))}
-            className="text-red-500"
+          <DeleteDialogConfirmation
+            onCancel={() => console.log('cancel')}
+            onConfirm={() => deleteTransaction(row.getValue('id'))}
           >
-            Delete
-          </Button>
+            <Button variant="outline" size="xs">
+              <Trash2 className="size-4 text-red-500" />
+            </Button>
+          </DeleteDialogConfirmation>
         </div>
       ),
     },

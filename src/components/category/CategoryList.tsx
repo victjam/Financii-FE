@@ -1,3 +1,4 @@
+import { Trash2 } from 'lucide-react';
 import React, { useEffect } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -8,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { DeleteDialogConfirmation } from '@/components/ui/delete-dialog-confirmation';
 
 import { useCategoryStore } from '@/store/useCategoryStore';
 import { useTransactionStore } from '@/store/useTransactionStore';
@@ -68,13 +70,14 @@ export const CategoryList: React.FC = () => {
                 {category && (
                   <div className="flex flex-row justify-end gap-2">
                     <AddCategoryDialog title="Edit" category={category} />
-                    <Button
-                      size="sm"
-                      onClick={() => deleteCategory(category.id ?? '')}
-                      className="text-red-500"
+                    <DeleteDialogConfirmation
+                      onCancel={() => console.log('cancel')}
+                      onConfirm={() => deleteCategory(category.id ?? '')}
                     >
-                      Delete
-                    </Button>
+                      <Button variant="outline" size="xs">
+                        <Trash2 className="size-4 text-red-500" />
+                      </Button>
+                    </DeleteDialogConfirmation>
                   </div>
                 )}
               </div>

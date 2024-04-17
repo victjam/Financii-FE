@@ -1,5 +1,6 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -12,7 +13,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 import { useCategoryStore } from '@/store/useCategoryStore';
 
 import { makeApiRequest } from '@/core/makeApiRequest';
@@ -25,7 +25,6 @@ interface CategoryFormProps {
 
 export const CategoryForm = ({ category }: CategoryFormProps) => {
   const [title, setTitle] = useState('');
-  const { setAlert } = useAlertMessageStore();
   const { addNewCategory, updateExistingCategory } = useCategoryStore();
 
   const handleCategory = async () => {
@@ -37,11 +36,13 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
       });
       if (category) {
         updateExistingCategory(response.data as Category);
+        toast.success('Category updated');
       } else {
         addNewCategory(response.data as Category);
+        toast.success('Category created');
       }
     } catch (error) {
-      setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+      toast.error('An error occurred');
     }
   };
 

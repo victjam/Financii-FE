@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react';
+import { Pencil, Plus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -26,10 +26,15 @@ export const AddTransactionDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm" className="ml-auto gap-1">
-          {title ?? 'Add transaction'}
-          {!title && <Plus className="size-4" />}
-        </Button>
+        {title ? (
+          <Button size="xs" variant="outline">
+            <Pencil className="size-4 text-yellow-500" />
+          </Button>
+        ) : (
+          <Button className="ml-auto gap-1">
+            Add transaction <Plus className="size-4" />
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

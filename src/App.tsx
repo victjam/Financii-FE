@@ -1,21 +1,31 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import { TransactionList } from '@/components/transaction/TransactionList';
+import { Header } from '@/components/ui/header';
+import { Toaster } from '@/components/ui/sonner';
+
+import { AuthGuard } from '@/core/AuthGuard';
+
 import { CategoryList } from './components/category/CategoryList';
-import { TransactionList } from './components/transaction/TransactionList';
-import { AlertDestructive } from './components/ui/error-alert';
-import { Header } from './components/ui/header';
-import { AuthGuard } from './core/AuthGuard';
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
-import { Signup } from './pages/Signup';
-import { ThemeProvider } from './providers/ThemeProvider';
-import { useAlertMessageStore } from './store/useAlertMessageStore';
+
+import { Home } from '@/pages/Home';
+import { Login } from '@/pages/Login';
+import { Signup } from '@/pages/Signup';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 const App = () => {
-  const { alert } = useAlertMessageStore();
   return (
     <>
-      {alert.enabled && <AlertDestructive error={alert.message} />}
+      <Toaster
+        toastOptions={{
+          duration: 5000,
+          classNames: {
+            error: 'bg-red-400',
+            info: 'bg-blue-400',
+            warning: 'bg-orange-400',
+          },
+        }}
+      />
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Router>
           <Header />

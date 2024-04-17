@@ -1,3 +1,5 @@
+import { Pencil, Plus } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -24,9 +26,15 @@ export const AddCategoryDialog = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm" className="ml-auto w-full gap-1">
-          {title ? 'Update' : 'New category'}
-        </Button>
+        {title ? (
+          <Button size="xs" variant="outline">
+            <Pencil className="size-4 text-yellow-500" />
+          </Button>
+        ) : (
+          <Button className="ml-auto gap-1">
+            Add category <Plus className="size-4" />
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

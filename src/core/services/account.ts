@@ -1,4 +1,4 @@
-import { useAlertMessageStore } from '@/store/useAlertMessageStore';
+import { toast } from 'sonner';
 
 import { type Account } from '@/interfaces/account.interface';
 
@@ -14,9 +14,7 @@ export const createAccount = async (account: Account) => {
 
     return data;
   } catch (error) {
-    useAlertMessageStore
-      .getState()
-      .setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+    toast.error('An error occurred');
   }
 };
 
@@ -33,9 +31,7 @@ export const updateAccount = async (account: Account) => {
 
     return data;
   } catch (error) {
-    useAlertMessageStore
-      .getState()
-      .setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+    toast.error('An error occurred');
   }
 };
 
@@ -43,8 +39,6 @@ export const deleteAccount = async (id: string) => {
   try {
     await makeApiRequest(`/accounts/${id}`, 'DELETE');
   } catch (error) {
-    useAlertMessageStore
-      .getState()
-      .setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+    toast.error('An error occurred');
   }
 };

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -47,9 +48,10 @@ export const Signup = () => {
       setIsAuthenticated(true);
       setUser(data.user);
       sessionStorage.setItem('token', data.access_token);
+      toast.success('The account has been created.');
       navigate('/');
     } catch (error) {
-      console.log('Invalid username or password');
+      toast.error('Invalid username or password');
     } finally {
       setLoading(false);
     }
@@ -71,7 +73,7 @@ export const Signup = () => {
   };
 
   const redirectToLogin = () => {
-    navigate('/home');
+    navigate('/');
   };
 
   return (

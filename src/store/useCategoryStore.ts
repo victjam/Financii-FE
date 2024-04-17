@@ -1,6 +1,5 @@
+import { toast } from 'sonner';
 import { create } from 'zustand';
-
-import { useAlertMessageStore } from '@/store/useAlertMessageStore';
 
 import { makeApiRequest } from '@/core/makeApiRequest';
 
@@ -37,10 +36,7 @@ export const useCategoryStore = create<CategoryStoreState>((set, get) => ({
       );
       set({ categories: updatedCategories });
     } catch (error) {
-      console.log(error.message);
-      useAlertMessageStore
-        .getState()
-        .setAlert({ enabled: true, message: 'Ha ocurrido un error' });
+      toast.error('An error occurred');
     }
   },
   updateExistingCategory: (newCategory: Category) => {

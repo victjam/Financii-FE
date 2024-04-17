@@ -1,5 +1,6 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -19,87 +20,91 @@ import { createAccount, updateAccount } from '@/core/services/account';
 import { type AccountComponentProps } from './account.interface';
 
 export const AccountForm = ({ account }: AccountComponentProps) => {
-  const MESSAGE = !account ? 'Adding a new account?' : 'Updating the account?';
-  const [name, setName] = useState('');
-  const [balance, setBalance] = useState(0);
-  const [type, setType] = useState('');
+  const [accountData, setAccountData] = useState({
+    name: '',
+    balance: 0,
+    type: '',
+  });
+
   const { upsertAccount } = useAccountStore();
 
   useEffect(() => {
     if (account) {
-      setName(account.name);
-      setBalance(account.balance ?? 0);
-      setType(account.type);
+      setAccountData({
+        name: account.name,
+        balance: account.balance ?? 0,
+        type: account.type,
+      });
     }
   }, [account]);
 
-  const handleAccountProcess = async () => {
-    let accountResponse;
-    if (!account) {
-      accountResponse = await createAccount({ name, balance, type });
-    } else {
-      accountResponse = await updateAccount({ id: account.id, name, type });
+  const handleChange =
+    (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAccountData((prev) => ({ ...prev, [field]: event.target.value }));
+    };
+
+  const handleSubmit = async () => {
+    const fn = account ? updateAccount : createAccount;
+    const data = account ? { ...accountData, id: account.id } : accountData;
+    const response = await fn(data);
+    if (response) {
+      upsertAccount(response);
+      toast.success(account ? 'Account updated' : 'Account created');
     }
-    if (!accountResponse) return;
-    upsertAccount(accountResponse);
   };
+
+  const { name, type, balance } = accountData;
+  const disableButton = !name || !type || (account && !balance);
 
   return (
     <Card className="border-0 shadow-none">
       <CardHeader>
         <CardTitle className="text-2xl">Hey, what&apos;s up!</CardTitle>
-        <CardDescription>{MESSAGE}, let me help you with that.</CardDescription>
+        <CardDescription>
+          {account ? 'Updating the account?' : 'Adding a new account?'}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="name">Title</Label>
+            <Label htmlFor="name">Name</Label>
             <Input
-              value={name}
               id="name"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              type="string"
-              placeholder=""
+              value={name}
+              onChange={handleChange('name')}
+              type="text"
               required
             />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="type">Type</Label>
             <Input
-              value={type}
               id="type"
-              onChange={(e) => {
-                setType(e.target.value);
-              }}
-              type="string"
-              placeholder=""
+              value={type}
+              onChange={handleChange('type')}
+              type="text"
               required
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="type">Balance inicial</Label>
+            <Label htmlFor="balance">Initial Balance</Label>
             <Input
-              id="type"
-              disabled={!!account}
+              id="balance"
               value={balance}
-              onChange={(e) => {
-                setBalance(parseInt(e.target.value, 10));
-              }}
+              onChange={handleChange('balance')}
               type="number"
-              placeholder=""
+              disabled={!!account}
               required
             />
           </div>
           <DialogClose asChild>
             <Button
-              disabled={!name || !type}
+              disabled={disableButton}
               type="submit"
-              onClick={handleAccountProcess}
+              onClick={handleSubmit}
               className="w-full"
             >
-              {!account ? 'Create account' : 'Update account'}
+              {account ? 'Update Account' : 'Create Account'}
             </Button>
           </DialogClose>
         </div>
