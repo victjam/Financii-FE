@@ -41,8 +41,8 @@ export const CategoryList: React.FC = () => {
     <Card className="xl:col-span-2">
       <CardHeader className="flex flex-row items-center justify-between">
         <div className="grid gap-2">
-          <CardTitle>Categories</CardTitle>
-          <CardDescription>Recent categories.</CardDescription>
+          <CardTitle>Categorias</CardTitle>
+          <CardDescription>Categorias recientes.</CardDescription>
         </div>
         <div className="w-2/12">
           <AddCategoryDialog />

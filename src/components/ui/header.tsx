@@ -6,8 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './dropdown-menu';
 import { Sheet, SheetContent, SheetTrigger } from './sheet';
@@ -15,21 +13,17 @@ import { ToggleMode } from './toggleMode';
 
 const NAVIGATIONS = [
   {
-    label: 'Home',
+    label: 'Inicio',
     path: '/',
   },
   {
-    label: 'Transactions',
+    label: 'Transacciones',
     path: '/transaction-list',
   },
   {
-    label: 'Categories',
+    label: 'Categorias',
     path: '/categories',
   },
-  // {
-  //   label: "Reports",
-  //   path: "/reports",
-  // },
 ];
 
 export const Header = () => {
@@ -37,6 +31,12 @@ export const Header = () => {
   const navigateTo = (path: string) => {
     navigae(path);
   };
+
+  const logout = () => {
+    sessionStorage.removeItem('token');
+    navigateTo('/login');
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -75,7 +75,7 @@ export const Header = () => {
               className="flex items-center gap-2 text-lg font-semibold"
             >
               <Package2 className="size-6" />
-              <span className="sr-only">Acme Inc</span>
+              <span className="sr-only">Financii</span>
             </a>
             {NAVIGATIONS.map((nav) => (
               <a
@@ -112,12 +112,14 @@ export const Header = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Support</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuSeparator /> */}
+            <DropdownMenuItem onClick={() => logout()}>
+              Cerrar sesion
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <ToggleMode />

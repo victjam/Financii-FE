@@ -18,10 +18,21 @@ export const fetchInterceptor = async (
       ...options,
     });
 
-    if (response.status === 401 || response.status === 403) {
-      console.log('Authentication error, logging out');
-      setIsAuthenticated(false);
-      throw new Error(`Authentication error with status ${response.status}`);
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({
+        message: response.statusText,
+        code: response.status,
+      }));
+
+      if (response.status === 401 || response.status === 403) {
+        setIsAuthenticated(false);
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-throw-literal
+      throw {
+        status: response.status,
+        message: errorBody.message || 'Unknown error occurred.',
+      };
     }
 
     return response;

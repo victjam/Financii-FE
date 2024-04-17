@@ -32,13 +32,13 @@ export const AddTransactionDialog = ({
           </Button>
         ) : (
           <Button className="ml-auto gap-1">
-            Add transaction <Plus className="size-4" />
+            Agregar transacción <Plus className="size-4" />
           </Button>
         )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>New transaction</DialogTitle>
+          <DialogTitle>Nueva transacción</DialogTitle>
           <DialogDescription asChild>
             <TransactionForm transaction={transaction ?? undefined} />
           </DialogDescription>

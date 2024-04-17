@@ -26,15 +26,15 @@ export function DeleteDialogConfirmation({
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>¿Estás absolutamente seguro?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Esta acción no se puede deshacer. Esto eliminará permanentemente tu
+            cuenta y eliminará tus datos de nuestros servidores.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
+          <AlertDialogCancel onClick={onCancel}>Cancelar</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>Continuar</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

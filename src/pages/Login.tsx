@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -29,7 +30,6 @@ export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { setIsAuthenticated, setUser } = useAuthStore();
 
@@ -39,17 +39,14 @@ export const Login = () => {
       const response: LoginResponse = await makeApiRequest(
         '/auth/token',
         'POST',
-        {
-          username,
-          password,
-        }
+        { username, password }
       );
       setIsAuthenticated(true);
       setUser(response.data.user);
       sessionStorage.setItem('token', response.data.access_token);
       navigate('/');
-    } catch (error) {
-      setError('Invalid username or password');
+    } catch (error: any) {
+      toast.error(error.message as string);
     } finally {
       setLoading(false);
     }
@@ -62,33 +59,30 @@ export const Login = () => {
     <div className="flex h-screen w-screen items-center justify-center">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
           <CardDescription>
-            Hi, Welcome back ✋, Enter your email below to login to your
-            account.
+            Hola, bienvenido de nuevo ✋, introduce tu correo electrónico abajo
+            para iniciar sesión en tu cuenta.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
-            {error && (
-              <div className="text-center text-sm text-red-500">{error}</div>
-            )}
             <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Usuario</Label>
               <Input
                 id="username"
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
-                type="string"
+                type="text"
                 required
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <a href="#" className="ml-auto inline-block text-sm underline">
-                  Forgot your password?
+                  ¿Olvidaste tu contraseña?
                 </a>
               </div>
               <Input
@@ -106,21 +100,21 @@ export const Login = () => {
               onClick={login}
               className="w-full space-x-2"
             >
-              <span>Login</span>
+              <span>Iniciar Sesión</span>
               {loading && <LoadingSpinner size={18} className="text-white" />}
             </Button>
             <Button disabled variant="outline" className="w-full">
-              Login with Github
+              Iniciar sesión con Github
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{' '}
+            ¿No tienes una cuenta?{' '}
             <a
               onClick={redirectToSignup}
               href="#"
               className="text-primary underline"
             >
-              Sign up
+              Regístrate
             </a>
           </div>
         </CardContent>

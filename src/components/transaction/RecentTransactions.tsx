@@ -37,9 +37,9 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
     <Card className="xl:col-span-2">
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
-          <CardTitle>Transactions</CardTitle>
+          <CardTitle>Transacciones</CardTitle>
           <CardDescription>
-            Recent transactions from your store.
+            Transacciones recientes de tu tienda.
           </CardDescription>
         </div>
         <Button asChild size="sm" className="ml-auto gap-1">
@@ -49,7 +49,7 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
               navigate('/transaction-list');
             }}
           >
-            View All
+            Ver Todas
             <ArrowUpRight className="size-4" />
           </a>
         </Button>
@@ -57,19 +57,19 @@ export const RecentTransactions: React.FC<TransactionsItemProps> = ({
       <CardContent>
         {transactions.length === 0 ? (
           <div className="flex w-full items-center justify-center">
-            <p className="text-gray-700">No results</p>
+            <p className="text-gray-700">Sin resultados</p>
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Title</TableHead>
+                <TableHead>Título</TableHead>
                 <TableHead className="hidden md:table-cell">
-                  Description
+                  Descripción
                 </TableHead>
-                <TableHead className="hidden md:table-cell">Date</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Category</TableHead>
+                <TableHead className="hidden md:table-cell">Fecha</TableHead>
+                <TableHead>Monto</TableHead>
+                <TableHead>Categoría</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

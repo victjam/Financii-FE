@@ -48,10 +48,10 @@ export const Signup = () => {
       setIsAuthenticated(true);
       setUser(data.user);
       sessionStorage.setItem('token', data.access_token);
-      toast.success('The account has been created.');
+      toast.success('La cuenta ha sido creada.');
       navigate('/');
-    } catch (error) {
-      toast.error('Invalid username or password');
+    } catch (error: any) {
+      toast.error(error.message as string);
     } finally {
       setLoading(false);
     }
@@ -69,7 +69,11 @@ export const Signup = () => {
       });
       await login();
       redirectToLogin();
-    } catch (error) {}
+    } catch (error: any) {
+      toast.error(error.message as string);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const redirectToLogin = () => {
@@ -80,63 +84,59 @@ export const Signup = () => {
     <div className="flex h-screen w-screen items-center justify-center">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-xl">Sign Up</CardTitle>
+          <CardTitle className="text-xl">Registrarse</CardTitle>
           <CardDescription>
-            Enter your information to create an account
+            Ingresa tu información para crear una cuenta
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="first-name">First name</Label>
+                <Label htmlFor="first-name">Nombre</Label>
                 <Input
                   onChange={(e) => {
                     setFirstName(e.target.value);
                   }}
                   id="first-name"
-                  placeholder="Max"
                   required
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="last-name">Last name</Label>
+                <Label htmlFor="last-name">Apellido</Label>
                 <Input
                   onChange={(e) => {
                     setLastName(e.target.value);
                   }}
                   id="last-name"
-                  placeholder="Robinson"
                   required
                 />
               </div>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Correo Electrónico</Label>
               <Input
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
                 id="email"
                 type="email"
-                placeholder="m@example.com"
                 required
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="email">Username</Label>
+              <Label htmlFor="email">Nombre de Usuario</Label>
               <Input
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
                 id="email"
                 type="email"
-                placeholder="m@example.com"
                 required
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Contraseña</Label>
               <Input
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -146,17 +146,17 @@ export const Signup = () => {
               />
             </div>
             <Button onClick={signup} type="submit" className="w-full gap-2">
-              <span>Create account</span>
+              <span>Crear cuenta</span>
               {loading && <LoadingSpinner size={18} className="text-white" />}
             </Button>
-            <Button variant="outline" className="w-full">
-              Sign up with GitHub
+            <Button disabled variant="outline" className="w-full">
+              Registrarse con GitHub
             </Button>
           </div>
           <div className="mt-4 text-center text-sm">
-            Already have an account?{' '}
+            ¿Ya tienes una cuenta?{' '}
             <a href="" onClick={redirectToLogin} className="underline">
-              Login
+              Iniciar Sesión
             </a>
           </div>
         </CardContent>

@@ -36,13 +36,13 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
       });
       if (category) {
         updateExistingCategory(response.data as Category);
-        toast.success('Category updated');
+        toast.success('Categoría actualizada');
       } else {
         addNewCategory(response.data as Category);
-        toast.success('Category created');
+        toast.success('Categoría creada');
       }
-    } catch (error) {
-      toast.error('An error occurred');
+    } catch (error: any) {
+      toast.error(error.message as string);
     }
   };
 
@@ -55,15 +55,15 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
   return (
     <Card className="border-0 shadow-none">
       <CardHeader>
-        <CardTitle className="text-2xl">Hey, what&apos;s up!</CardTitle>
+        <CardTitle className="text-2xl">¡Hola, ¿qué tal!</CardTitle>
         <CardDescription>
-          Adding a new category?, let me help you with that.
+          ¿Agregando una nueva categoría? Permíteme ayudarte con eso.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Title</Label>
+            <Label htmlFor="email">Título</Label>
             <Input
               value={title}
               id="title"
@@ -82,7 +82,7 @@ export const CategoryForm = ({ category }: CategoryFormProps) => {
               onClick={handleCategory}
               className="w-full"
             >
-              {category ? 'Update' : 'Create'}
+              {category ? 'Actualizar' : 'Crear'}
             </Button>
           </DialogClose>
         </div>

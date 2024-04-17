@@ -66,8 +66,8 @@ export const TransactionList = () => {
     <Card className="xl:col-span-2">
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
-          <CardTitle>Transactions</CardTitle>
-          <CardDescription>Recent transactions.</CardDescription>
+          <CardTitle>Transacciones</CardTitle>
+          <CardDescription>Transacciones recientes.</CardDescription>
         </div>
         <AddTransactionDialog />
       </CardHeader>

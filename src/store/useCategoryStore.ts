@@ -35,8 +35,8 @@ export const useCategoryStore = create<CategoryStoreState>((set, get) => ({
         (category) => category.id !== id
       );
       set({ categories: updatedCategories });
-    } catch (error) {
-      toast.error('An error occurred');
+    } catch (error: any) {
+      toast.error(error.message as string);
     }
   },
   updateExistingCategory: (newCategory: Category) => {

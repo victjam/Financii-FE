@@ -29,7 +29,7 @@ export const AccountDialog = ({ account }: AccountComponentProps) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{account ? 'Update' : 'Add'} account</DialogTitle>
+          <DialogTitle>{account ? 'Actualizar' : 'Agregar'} cuenta</DialogTitle>
           <DialogDescription asChild>
             <AccountForm account={account} />
           </DialogDescription>

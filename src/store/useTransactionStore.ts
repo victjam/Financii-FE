@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import { create } from 'zustand';
 
 import { makeApiRequest } from '@/core/makeApiRequest';
@@ -37,8 +38,8 @@ export const useTransactionStore = create<TransactionStoreState>(
           (transaction) => transaction.id !== id
         );
         set({ transactions: updatedTransactions });
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        toast.error(error.message as string);
       }
     },
     updateExistingTransaction: (newTransaction: Transaction) => {

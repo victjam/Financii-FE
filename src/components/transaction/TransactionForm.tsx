@@ -48,6 +48,7 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
   const { user } = useAuthStore();
   const [type, setType] = useState('');
   const [account, setAccount] = useState('');
+
   const handleTransaction = async (): Promise<void> => {
     const method = transaction ? 'PUT' : 'POST';
     const url = transaction
@@ -68,11 +69,11 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
       } else {
         addNewTransaction(response.data as Transaction);
       }
-      toast.success('Transaction added successfully!');
+      toast.success('¡Transacción agregada exitosamente!');
       updateAccountsData();
       await updateAccountsData();
-    } catch (error) {
-      toast.error('An error occurred');
+    } catch (error: any) {
+      toast.error(error.message as string);
     }
   };
 
@@ -83,13 +84,12 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
 
   const onClickHandler = (): void => {
     handleTransaction().catch(() => {
-      toast.error('An error occurred');
+      toast.error('Se produjo un error');
     });
   };
 
   useEffect(() => {
     if (transaction) {
-      console.log(transaction);
       setAmount(transaction.amount);
       setDescription(transaction.description);
       setTitle(transaction.title);
@@ -102,40 +102,40 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
   return (
     <Card className="border-0 shadow-none">
       <CardHeader>
-        <CardTitle className="text-2xl">Hey, what&apos;s up!</CardTitle>
+        <CardTitle className="text-2xl">¡Hola, ¿qué tal?! </CardTitle>
         <CardDescription>
-          Adding a new transaction?, let me help you with that.
+          ¿Agregando una nueva transacción? ¡Déjame ayudarte con eso!
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="type">Type</Label>
+            <Label htmlFor="type">Tipo</Label>
             <div className="flex w-full gap-2">
               <Button
                 onClick={() => setType('income')}
-                className={` w-full  hover:bg-green-700 ${
+                className={`w-full hover:bg-green-700 ${
                   type === 'income'
                     ? 'border border-black bg-green-600'
                     : 'bg-green-500'
                 }`}
               >
-                Income
+                Ingreso
               </Button>
               <Button
                 onClick={() => setType('expense')}
-                className={` w-full  hover:bg-red-700 ${
+                className={`w-full hover:bg-red-700 ${
                   type === 'expense'
                     ? 'border border-black bg-red-600'
                     : 'bg-red-500'
                 }`}
               >
-                Expense
+                Egreso
               </Button>
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Title</Label>
+            <Label htmlFor="email">Título</Label>
             <Input
               id="title"
               value={title}
@@ -148,7 +148,7 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Description</Label>
+            <Label htmlFor="email">Descripción</Label>
             <Textarea
               id="description"
               value={description}
@@ -159,13 +159,13 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Category</Label>
+            <Label htmlFor="email">Categoría</Label>
             <Select
               value={category}
               onValueChange={(value) => setCategory(value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Categories" />
+                <SelectValue placeholder="Categorías" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (
@@ -177,13 +177,13 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
             </Select>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Account</Label>
+            <Label htmlFor="email">Cuenta</Label>
             <Select
               value={account}
               onValueChange={(value) => setAccount(value)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Accounts" />
+                <SelectValue placeholder="Cuentas" />
               </SelectTrigger>
               <SelectContent>
                 {accounts.map((account) => (
@@ -195,7 +195,7 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
             </Select>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Amount</Label>
+            <Label htmlFor="email">Monto</Label>
             <Input
               id="amount"
               value={amount}
@@ -220,7 +220,7 @@ export const TransactionForm = ({ transaction }: TransactionFormProps) => {
               onClick={onClickHandler}
               className="w-full"
             >
-              {transaction ? 'Update' : 'Add'}
+              {transaction ? 'Actualizar' : 'Agregar'}
             </Button>
           </DialogClose>
         </div>

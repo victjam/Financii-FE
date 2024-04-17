@@ -25,7 +25,7 @@ export const RecentCategories: React.FC<CategoriesItemProps> = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Recent Categories</CardTitle>
+        <CardTitle>Categorias recientes</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
         {categories.map((category) => {

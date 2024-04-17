@@ -13,8 +13,8 @@ export const createAccount = async (account: Account) => {
     });
 
     return data;
-  } catch (error) {
-    toast.error('An error occurred');
+  } catch (error: any) {
+    toast.error(error.message as string);
   }
 };
 
@@ -30,15 +30,15 @@ export const updateAccount = async (account: Account) => {
     );
 
     return data;
-  } catch (error) {
-    toast.error('An error occurred');
+  } catch (error: any) {
+    toast.error(error.message as string);
   }
 };
 
 export const deleteAccount = async (id: string) => {
   try {
     await makeApiRequest(`/accounts/${id}`, 'DELETE');
-  } catch (error) {
-    toast.error('An error occurred');
+  } catch (error: any) {
+    toast.error(error.message as string);
   }
 };

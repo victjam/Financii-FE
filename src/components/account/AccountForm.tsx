@@ -49,7 +49,7 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
     const response = await fn(data);
     if (response) {
       upsertAccount(response);
-      toast.success(account ? 'Account updated' : 'Account created');
+      toast.success(account ? 'Cuenta actualizada' : 'Cuenta creada');
     }
   };
 
@@ -59,15 +59,17 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
   return (
     <Card className="border-0 shadow-none">
       <CardHeader>
-        <CardTitle className="text-2xl">Hey, what&apos;s up!</CardTitle>
+        <CardTitle className="text-2xl">¡Hola, ¿qué tal!</CardTitle>
         <CardDescription>
-          {account ? 'Updating the account?' : 'Adding a new account?'}
+          {account
+            ? '¿Actualizando la cuenta?'
+            : '¿Agregando una nueva cuenta?'}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">Nombre</Label>
             <Input
               id="name"
               value={name}
@@ -77,7 +79,7 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="type">Type</Label>
+            <Label htmlFor="type">Tipo</Label>
             <Input
               id="type"
               value={type}
@@ -87,7 +89,7 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="balance">Initial Balance</Label>
+            <Label htmlFor="balance">Saldo Inicial</Label>
             <Input
               id="balance"
               value={balance}
@@ -104,7 +106,7 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
               onClick={handleSubmit}
               className="w-full"
             >
-              {account ? 'Update Account' : 'Create Account'}
+              {account ? 'Actualizar Cuenta' : 'Crear Cuenta'}
             </Button>
           </DialogClose>
         </div>
