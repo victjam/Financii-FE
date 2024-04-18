@@ -26,7 +26,7 @@ export const makeApiRequest = async <T>(
     ...additionalOptions,
     body: method !== 'GET' && body ? JSON.stringify(body) : undefined,
   };
-  const fullUrl = `http://127.0.0.1:8000/api${url}`;
+  const fullUrl = `https://financii-backend-git-main-vjotaas-projects.vercel.app/${url}`;
   const response = await fetchInterceptor(fullUrl, requestOptions);
 
   const data = await response.json().catch((e) => ({})); // Fallback to an empty object on JSON parse error
