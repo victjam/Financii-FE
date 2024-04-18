@@ -54,7 +54,6 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
   };
 
   const { name, type, balance } = accountData;
-  const disableButton = !name || !type || (account && !balance);
 
   return (
     <Card className="border-0 shadow-none">
@@ -101,7 +100,7 @@ export const AccountForm = ({ account }: AccountComponentProps) => {
           </div>
           <DialogClose asChild>
             <Button
-              disabled={disableButton}
+              disabled={!name || !type}
               type="submit"
               onClick={handleSubmit}
               className="w-full"
