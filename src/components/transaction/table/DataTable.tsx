@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
     <>
       <div className="flex items-center space-x-2 py-4">
         <Input
-          placeholder="Filter by title..."
+          placeholder="Filtrar por titulo..."
           value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             table.getColumn('title')?.setFilterValue(event.target.value)
@@ -80,10 +80,10 @@ export function DataTable<TData, TValue>({
         />
         <Select onValueChange={handleChange}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Categories" />
+            <SelectValue placeholder="Categorias" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="all">Todas</SelectItem>
             {categories.map((category) => (
               <SelectItem key={category.id} value={category.title}>
                 {category.title}

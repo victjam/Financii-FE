@@ -20,15 +20,15 @@ export function useColumns(): Array<ColumnDef<Transaction, unknown>> {
   return [
     {
       accessorKey: 'title',
-      header: 'Title',
+      header: 'Titulo',
     },
     {
       accessorKey: 'description',
-      header: 'Description',
+      header: 'Descripcion',
     },
     {
       accessorKey: 'createdAt',
-      header: 'Date',
+      header: 'Fecha',
       cell: ({ row }) => {
         const formattedDate = format(
           new Date(row.getValue('createdAt')),
@@ -46,7 +46,7 @@ export function useColumns(): Array<ColumnDef<Transaction, unknown>> {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Amount
+          Monto
           <ArrowUpDown className="ml-2 size-4" />
         </Button>
       ),
@@ -60,7 +60,7 @@ export function useColumns(): Array<ColumnDef<Transaction, unknown>> {
     },
     {
       accessorKey: 'category_name',
-      header: 'Category',
+      header: 'Categoria',
       cell: ({ row }) => (
         <Badge className="text-right font-medium">
           {row.getValue('category_name')}
@@ -69,7 +69,7 @@ export function useColumns(): Array<ColumnDef<Transaction, unknown>> {
     },
     {
       accessorKey: 'id',
-      header: 'Actions',
+      header: 'Acciones',
       cell: ({ row }) => (
         <div className="flex flex-row justify-end gap-2">
           <AddTransactionDialog title="Edit" transaction={row.original} />

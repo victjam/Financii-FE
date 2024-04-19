@@ -32,7 +32,7 @@ export const AddCategoryDialog = ({
           </Button>
         ) : (
           <Button className="ml-auto gap-1">
-            Add category <Plus className="size-4" />
+            Nueva categoria <Plus className="size-4" />
           </Button>
         )}
       </DialogTrigger>
