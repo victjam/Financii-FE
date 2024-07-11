@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# Personal Money Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a personal money management app designed to help you keep track of your finances. The app is currently a work in progress and aims to provide features such as expense tracking, budget management, and financial planning.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Expense Tracking:** Keep a record of all your expenses.
+- **Budget Management:** Set and manage your budgets for different categories.
+- **Financial Planning:** Plan your finances and set financial goals.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React:** A JavaScript library for building user interfaces.
+- **Vite:** A build tool that aims to provide a faster and leaner development experience for modern web projects.
+- **Tailwind CSS:** A utility-first CSS framework for rapid UI development.
+- **shadcn:** A component library for React and Tailwind CSS.
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+To get started with the project, clone the repository and install the dependencies using `pnpm`:
+
+```bash
+git clone https://github.com/your-username/personal-money-management-app.git
+cd personal-money-management-app
+pnpm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Development
+To start the development server, run:
+
+```bash
+pnpm run dev
+```
+
+The app will be available at http://localhost:3000.
